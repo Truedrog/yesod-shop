@@ -3,10 +3,58 @@
 # For more information, please see the documentation at:
 #   https://docs.haskellstack.org/en/stable/lock_files
 
-packages: []
+packages:
+- completed:
+    subdir: serversession
+    cabal-file:
+      size: 2081
+      sha256: a958ff0007e5084e3e4c2a33acc9860c31186105f02f8ab99ecb847a7a8f9497
+    name: serversession
+    version: 1.0.1
+    git: https://github.com/yesodweb/serversession.git
+    pantry-tree:
+      size: 544
+      sha256: f825236d72f8eb42bb095c08b63e34d4ea7f83b059983543a725ddb5ef808b25
+    commit: 130fbbaaf26b444b27596167d3e3cb3528139b25
+  original:
+    subdir: serversession
+    git: https://github.com/yesodweb/serversession.git
+    commit: 130fbbaaf26b444b27596167d3e3cb3528139b25
+- completed:
+    subdir: serversession-frontend-yesod
+    cabal-file:
+      size: 1362
+      sha256: ecf5eac09f22b4a0bdc77fd37759f6d48c56015474ca6fda6061fcc215fcc33c
+    name: serversession-frontend-yesod
+    version: '1.0'
+    git: https://github.com/yesodweb/serversession.git
+    pantry-tree:
+      size: 440
+      sha256: c4c3556e7d7c5e1509da99322918cce1e540598b267a738ebeee43959b3fed5c
+    commit: 130fbbaaf26b444b27596167d3e3cb3528139b25
+  original:
+    subdir: serversession-frontend-yesod
+    git: https://github.com/yesodweb/serversession.git
+    commit: 130fbbaaf26b444b27596167d3e3cb3528139b25
+- completed:
+    subdir: serversession-backend-persistent
+    cabal-file:
+      size: 2469
+      sha256: 93c381b8972d98d836fa3171d3e3f70f6d6580179b5aa9add53a68837a5b6ca6
+    name: serversession-backend-persistent
+    version: 1.0.4
+    git: https://github.com/yesodweb/serversession.git
+    pantry-tree:
+      size: 662
+      sha256: 37e10134ba3b0f522c631ae90a1acf72e302343abd7ad9af16acb66eeb10b185
+    commit: 130fbbaaf26b444b27596167d3e3cb3528139b25
+  original:
+    subdir: serversession-backend-persistent
+    git: https://github.com/yesodweb/serversession.git
+    commit: 130fbbaaf26b444b27596167d3e3cb3528139b25
 snapshots:
 - completed:
-    size: 545658
-    url: https://raw.githubusercontent.com/commercialhaskell/stackage-snapshots/master/lts/14/12.yaml
-    sha256: 26b807457213126d26b595439d705dc824dbb7618b0de6b900adc2bf6a059406
-  original: lts-14.12
+    size: 524789
+    url: https://raw.githubusercontent.com/commercialhaskell/stackage-snapshots/master/lts/14/18.yaml
+    sha256: 646be71223e08234131c6989912e6011e01b9767bc447b6d466a35e14360bdf2
+  original: lts-14.18

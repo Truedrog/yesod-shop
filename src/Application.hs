@@ -53,17 +53,25 @@ import           System.Log.FastLogger          ( defaultBufSize
                                                 , newStdoutLoggerSet
                                                 , toLogStr
                                                 )
-
+import qualified Data.Proxy                    as P
+import qualified Web.ServerSession.Core        as SS
+import qualified Web.ServerSession.Backend.Persistent as SS
 
 -- Import all relevant handler modules here.
 -- Don't forget to add new modules to your cabal file!
 -- import Handler.Common
 import Handler.Home
+import Handler.Data
 
 -- This line actually creates our YesodDispatch instance. It is the second half
 -- of the call to mkYesodData which occurs in Foundation.hs. Please see the
 -- comments there for more details.
 mkYesodDispatch "App" resourcesApp
+
+
+-- Create migration function using both our entities and
+-- serversession-backend-persistent ones.
+mkMigrate "migrateAll" (SS.serverSessionDefs (P.Proxy :: P.Proxy SS.SessionMap) ++ entityDefs)
 
 -- | This function allocates resources (such as a database connection pool),
 -- performs initialization and returns a foundation datatype value. This is also
@@ -78,7 +86,7 @@ makeFoundation appSettings = do
     appStatic <-
         (if appMutableStatic appSettings then staticDevel else static)
         (appStaticDir appSettings)
-    
+
     -- We need a log function to create a connection pool. We need a connection
     -- pool to create our foundation. And we need our foundation to get a
     -- logging function. To get out of this loop, we initially create a
@@ -123,7 +131,6 @@ makeLogWare foundation =
                             else FromSocket)
         , destination = Logger $ loggerSet $ appLogger foundation
         }
-
 
 -- | Warp settings for the given foundation value.
 warpSettings :: App -> Settings
@@ -176,7 +183,6 @@ appMain = do
     -- Run the application with Warp
     runSettings (warpSettings foundation) app
 
-
 --------------------------------------------------------------
 -- Functions for DevelMain.hs (a way to run the app from GHCi)
 --------------------------------------------------------------
@@ -190,7 +196,6 @@ getApplicationRepl = do
 
 shutdownApp :: App -> IO ()
 shutdownApp _ = return ()
-
 
 ---------------------------------------------
 -- Functions for use in development with GHCi

@@ -8,7 +8,7 @@ User
     deriving Typeable
 Email
     email Text
-    userId UserId Maybe
+    user UserId Maybe
     verkey Text Maybe
     UniqueEmail email
 Comment json -- Adding "json" causes ToJSON and FromJSON instances to be derived.
