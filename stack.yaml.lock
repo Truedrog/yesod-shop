@@ -5,56 +5,15 @@
 
 packages:
 - completed:
-    subdir: serversession
-    cabal-file:
-      size: 2081
-      sha256: a958ff0007e5084e3e4c2a33acc9860c31186105f02f8ab99ecb847a7a8f9497
-    name: serversession
-    version: 1.0.1
-    git: https://github.com/yesodweb/serversession.git
+    hackage: esqueleto-3.3.0@sha256:a9abf3ef7b92b39d4fec9741e0c547df1f37ea256260accd4313db8b4fad746e,5466
     pantry-tree:
-      size: 544
-      sha256: f825236d72f8eb42bb095c08b63e34d4ea7f83b059983543a725ddb5ef808b25
-    commit: 130fbbaaf26b444b27596167d3e3cb3528139b25
+      size: 1461
+      sha256: a1eb45972e18698671589f469476f4d38af8c91b7a2e560dab505d383d4c5974
   original:
-    subdir: serversession
-    git: https://github.com/yesodweb/serversession.git
-    commit: 130fbbaaf26b444b27596167d3e3cb3528139b25
-- completed:
-    subdir: serversession-frontend-yesod
-    cabal-file:
-      size: 1362
-      sha256: ecf5eac09f22b4a0bdc77fd37759f6d48c56015474ca6fda6061fcc215fcc33c
-    name: serversession-frontend-yesod
-    version: '1.0'
-    git: https://github.com/yesodweb/serversession.git
-    pantry-tree:
-      size: 440
-      sha256: c4c3556e7d7c5e1509da99322918cce1e540598b267a738ebeee43959b3fed5c
-    commit: 130fbbaaf26b444b27596167d3e3cb3528139b25
-  original:
-    subdir: serversession-frontend-yesod
-    git: https://github.com/yesodweb/serversession.git
-    commit: 130fbbaaf26b444b27596167d3e3cb3528139b25
-- completed:
-    subdir: serversession-backend-persistent
-    cabal-file:
-      size: 2469
-      sha256: 93c381b8972d98d836fa3171d3e3f70f6d6580179b5aa9add53a68837a5b6ca6
-    name: serversession-backend-persistent
-    version: 1.0.4
-    git: https://github.com/yesodweb/serversession.git
-    pantry-tree:
-      size: 662
-      sha256: 37e10134ba3b0f522c631ae90a1acf72e302343abd7ad9af16acb66eeb10b185
-    commit: 130fbbaaf26b444b27596167d3e3cb3528139b25
-  original:
-    subdir: serversession-backend-persistent
-    git: https://github.com/yesodweb/serversession.git
-    commit: 130fbbaaf26b444b27596167d3e3cb3528139b25
+    hackage: esqueleto-3.3.0@sha256:a9abf3ef7b92b39d4fec9741e0c547df1f37ea256260accd4313db8b4fad746e,5466
 snapshots:
 - completed:
-    size: 524789
-    url: https://raw.githubusercontent.com/commercialhaskell/stackage-snapshots/master/lts/14/18.yaml
-    sha256: 646be71223e08234131c6989912e6011e01b9767bc447b6d466a35e14360bdf2
-  original: lts-14.18
+    size: 439645
+    url: https://raw.githubusercontent.com/commercialhaskell/stackage-snapshots/master/nightly/2019/12/27.yaml
+    sha256: 5cd678542d326b04c3f06654db603eda7c2fce6704c435f96a6be82e317ddb1f
+  original: nightly-2019-12-27

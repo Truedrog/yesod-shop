@@ -17,7 +17,8 @@
 #
 # resolver: ./custom-snapshot.yaml
 # resolver: https://example.com/snapshots/2018-01-01.yaml
-resolver: lts-14.18
+# resolver: lts-14.18
+resolver: nightly-2019-12-27
 
 # User packages to be built.
 # Various formats can be used as shown in the example below.
@@ -40,13 +41,7 @@ packages:
 #   commit: e7b331f14bcffb8367cd58fbfc8b40ec7642100a
 #
 extra-deps: 
-- git: https://github.com/yesodweb/serversession.git
-  commit: 130fbbaaf26b444b27596167d3e3cb3528139b25
-  subdirs: 
-    - serversession
-    - serversession-frontend-yesod
-    - serversession-backend-persistent
-
+- esqueleto-3.3.0@sha256:a9abf3ef7b92b39d4fec9741e0c547df1f37ea256260accd4313db8b4fad746e,5466
 
 # Override default flag values for local packages and extra-deps
 # flags: {}

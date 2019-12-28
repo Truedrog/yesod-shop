@@ -4,20 +4,28 @@
 
 module Handler.Data where
 
-import           Import
-import qualified Data.Text.Lazy.Encoding       as TL
-import           Data.Aeson
-import           Data.Aeson.Text                ( encodeToLazyText )
+import Data.Aeson
+import Data.Aeson.Text (encodeToLazyText)
+import qualified Data.Text.Lazy.Encoding as TL
+import Import
 
-newtype MyResponse = MyResponse{msg :: Text}
-                       deriving (Show, Eq, Generic)
+newtype MyResponse =
+  MyResponse
+    { msg :: Text
+    }
+  deriving (Show, Eq, Generic)
 
 instance ToJSON MyResponse where
   toEncoding = genericToEncoding defaultOptions
 
-newtype Person = Person{age :: Int}
-                   deriving (Show, Eq, Generic)
+newtype Person =
+  Person
+    { age :: Int
+    }
+  deriving (Show, Eq, Generic)
+
 instance FromJSON Person
+
 instance ToJSON Person where
   toEncoding = genericToEncoding defaultOptions
 
@@ -26,7 +34,7 @@ getDataR = do
   mayeObjectInSession <- lookupSession "object11"
   case mayeObjectInSession of
     Nothing -> do
-      let person  = Person 29
+      let person = Person 29
       let person2 = Person 13
   --     setSession "object" ((toStrict $ encodeToLazyText person) :: Text)
   --     setSession "object1" ((toStrict $ encodeToLazyText person2) :: Text)
@@ -42,12 +50,8 @@ getDataR = do
       setSession "object11" ((toStrict $ encodeToLazyText person2) :: Text)
       returnJson person
     Just objectInSession ->
-      case
-          (decode $ TL.encodeUtf8 $ fromStrict objectInSession :: Maybe Person)
-        of
-          Just o -> do
-            liftIO $ print o
-            sendStatusJSON status201 o
-          Nothing -> sendStatusJSON
-            status400
-            (MyResponse { msg = "Some error happend in decode" })
+      case (decode $ TL.encodeUtf8 $ fromStrict objectInSession :: Maybe Person) of
+        Just o -> do
+          liftIO $ print o
+          sendStatusJSON status201 o
+        Nothing -> sendStatusJSON status400 (MyResponse {msg = "Some error happend in decode"})

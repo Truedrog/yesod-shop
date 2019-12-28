@@ -28,6 +28,7 @@ default-extensions:
   - ViewPatterns
   - BlockArguments
   - LambdaCase
+  - UndecidableInstances
 
 
 dependencies:
@@ -76,9 +77,6 @@ dependencies:
 - persistent-template
 - persistent-postgresql
 - esqueleto
-- serversession
-- serversession-frontend-yesod
-- serversession-backend-persistent
 
 # The library contains all of our application code. The executable
 # defined below is just a thin wrapper.

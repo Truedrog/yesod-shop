@@ -3,8 +3,6 @@
 module Foundation where
 
 import Import.NoFoundation
-import           Web.ServerSession.Backend.Persistent
-import           Web.ServerSession.Frontend.Yesod
 import           Network.Mail.Mime
 import           Text.Shakespeare.Text          ( stext )
 import           Text.Hamlet                    ( shamlet )
@@ -39,10 +37,10 @@ instance Yesod App where
             Nothing -> getApprootText guessApproot app req
             Just root -> root
 
-    makeSessionBackend = simpleBackend opts . SqlStorage . appConnPool
-       where opts = setIdleTimeout     (Just $  5 * 60) -- 5  minutes
-                 . setAbsoluteTimeout (Just $ 20 * 60) -- 20 minutes
-                 . setCookieName      sessionCookieName
+    makeSessionBackend :: App -> IO (Maybe SessionBackend)
+    makeSessionBackend _ = Just <$> defaultClientSessionBackend
+        120    -- timeout in minutes
+        "config/client_session_key.aes"
 
     yesodMiddleware :: ToTypedContent res => Handler res -> Handler res
     yesodMiddleware = defaultYesodMiddleware
@@ -106,10 +104,6 @@ instance YesodAuth App where
             Right userId -> userId
 
     authHttpManager = error "Email doesn't need an HTTP manager"
-    
-    -- authPlugins :: App -> [AuthPlugin App]
-    -- authPlugins app = [authDummy | appAuthDummyLogin $ appSettings app]
-    -- authPlugins app = []
 
 -- | Access function to determine if a user is logged in.
 isAuthenticated :: Handler AuthResult

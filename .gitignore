@@ -26,3 +26,4 @@ yesod-app.cabal
 node_modules
 static/builds
 npm-debug.log
+*.iml
