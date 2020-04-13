@@ -18,7 +18,12 @@ User json
     deriving Eq Show Typeable
 Product json
     title Text
+    category CategoryId Maybe
     description Text Maybe
     image Text Maybe
+    deriving Eq Show Typeable
+Category json
+    title Text
+    description Text Maybe
     deriving Eq Show Typeable
 |]
