@@ -26,4 +26,6 @@ yesod-app.cabal
 node_modules
 static/builds
 npm-debug.log
-*.iml
+yesod-app.iml
+/assets.zip
+/frontend.zip

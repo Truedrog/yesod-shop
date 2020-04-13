@@ -23,6 +23,7 @@ import Import
 getHomeR :: Handler Html
 getHomeR = do
   app <- getYesod
+  $(logDebug) "test"
   let staticDir = appStaticDir $ appSettings app
   let indexPath = staticDir </> "index.html"
   sendFile typeHtml indexPath

@@ -2,7 +2,6 @@ module AppType where
 
 import Import.NoFoundation
 
-import Database.Persist.Sql (ConnectionPool)
 import Yesod.Core.Types     (Logger)
 
 -- | The foundation datatype for your application. This can be a good place to

@@ -5,6 +5,8 @@ default-extensions:
   - BangPatterns
   - ConstraintKinds
   - DataKinds
+  - DerivingStrategies
+  - StandaloneDeriving
   - DeriveDataTypeable
   - DeriveGeneric
   - EmptyDataDecls
