@@ -13,7 +13,7 @@ packages:
     hackage: esqueleto-3.3.0@sha256:a9abf3ef7b92b39d4fec9741e0c547df1f37ea256260accd4313db8b4fad746e,5466
 snapshots:
 - completed:
-    size: 491387
-    url: https://raw.githubusercontent.com/commercialhaskell/stackage-snapshots/master/lts/15/6.yaml
-    sha256: 8d81505a6de861e167a58534ab62330afb75bfa108735c7db1204f7ef2a39d79
-  original: lts-15.6
+    size: 492015
+    url: https://raw.githubusercontent.com/commercialhaskell/stackage-snapshots/master/lts/15/8.yaml
+    sha256: 926bc3d70249dd0ba05277ff00943c0addb35b627cb641752669e7cf771310d0
+  original: lts-15.8
