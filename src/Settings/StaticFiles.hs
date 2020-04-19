@@ -15,9 +15,9 @@ import Yesod.Static (staticFiles)
 -- If the identifier is not available, you may use:
 --
 --     StaticFile ["js", "script.js"] []
-staticFiles "assets/static/css"
-staticFiles "assets/static/js"
-staticFiles "assets/static/media"
-staticFiles "assets"
+--staticFiles "assets/static/css"
+--staticFiles "assets/static/js"
+--staticFiles "assets/static/media"
+staticFiles "assets/"
 
 -- staticFiles (appStaticDir compileTimeAppSettings)

@@ -1,37 +1,19 @@
-{-# LANGUAGE DeriveGeneric #-}
-{-# LANGUAGE OverloadedStrings #-}
-{-# LANGUAGE NoImplicitPrelude #-}
-
 module Handler.Data where
 
-import Data.Aeson
-import Database.Esqueleto
-import Import
+import Database.Esqueleto hiding (from, on)
+import Database.Esqueleto.Experimental
+import Import hiding ((==.), (||.))
+import Db.DbStuff
 
-newtype MyResponse
-  = MyResponse
-      { msg :: Text
-      }
-  deriving (Show, Eq, Generic)
-
-instance ToJSON MyResponse where
-  toEncoding = genericToEncoding defaultOptions
-
-newtype Person
-  = Person
-      { age :: Int
-      }
-  deriving (Show, Eq, Generic)
-
-instance FromJSON Person
-
-instance ToJSON Person where
-  toEncoding = genericToEncoding defaultOptions
-
-getDataR :: Handler Import.Value
-getDataR = do
-  users <- runDB getUsers
-  returnJson users
+getCatsR :: Handler Import.Value
+getCatsR = do
+  _    <- runDB $ setupDb
+  cats <- runDB $ statement
+  products <- runDB $ selectProducts
+  returnJson (cats, products)
   where
-    getUsers :: (MonadIO m) => SqlReadT m [Entity User]
-    getUsers = select $ from $ \user -> pure user
+    selectProducts = select $ from $ Table @Product
+    statement = select do
+                    cat <- from $ Table @Category
+                    where_ (cat ^. CategoryParentId `in_` valList [Just (toSqlKey 1), Just (toSqlKey 2)])
+                    pure cat

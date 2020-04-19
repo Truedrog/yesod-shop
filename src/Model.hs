@@ -1,8 +1,9 @@
 module Model where
 
 import           ClassyPrelude.Yesod
-
 import           Database.Esqueleto
+import qualified Database.Esqueleto.PostgreSQL.JSON as PJSON
+import Db.DbTypes
 
 -- You can define all of your database entities in the entities file.
 -- You can find more information on persistent and how to declare entities
@@ -15,15 +16,25 @@ User json
     verkey Text Maybe -- Used for resetting passwords
     verified Bool
     UniqueUser email
+    firstName Text Maybe
+    lastName Text Maybe
+    phone Text Maybe
     deriving Eq Show Typeable
 Product json
     title Text
-    category CategoryId Maybe
+    category CategoryId
     description Text Maybe
-    image Text Maybe
+    price Double
+    badges (PJSON.JSONB [Text]) Maybe
+    images (PJSON.JSONB [Text] ) Maybe
+    rating Int
+    availability Bool
+    features (PJSON.JSONB [ProductFeature]) Maybe
+    options (PJSON.JSONB [Text] ) Maybe
+    spec (PJSON.JSONB [ProductSpecType]) Maybe
     deriving Eq Show Typeable
 Category json
     title Text
-    description Text Maybe
+    parentId CategoryId Maybe
     deriving Eq Show Typeable
 |]

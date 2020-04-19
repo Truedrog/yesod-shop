@@ -3,14 +3,7 @@
 # For more information, please see the documentation at:
 #   https://docs.haskellstack.org/en/stable/lock_files
 
-packages:
-- completed:
-    hackage: esqueleto-3.3.0@sha256:a9abf3ef7b92b39d4fec9741e0c547df1f37ea256260accd4313db8b4fad746e,5466
-    pantry-tree:
-      size: 1461
-      sha256: a1eb45972e18698671589f469476f4d38af8c91b7a2e560dab505d383d4c5974
-  original:
-    hackage: esqueleto-3.3.0@sha256:a9abf3ef7b92b39d4fec9741e0c547df1f37ea256260accd4313db8b4fad746e,5466
+packages: []
 snapshots:
 - completed:
     size: 492015
