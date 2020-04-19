@@ -159,7 +159,7 @@ setupDb = do
             productCategory = drills,
             productDescription =
               Just
-                "Combi drill with soft-grip handle and work light. Compact and ergonomic. Full-metal chuck and brushless motor. Supplied with blow-moulded case. ",
+                "Combi drill with soft-grip handle and work light. Compact and ergonomic. Full-metal chuck and brushless motor. Supplied with blow-moulded case.",
             productPrice = 119.99,
             productBadges = Just $ PJSON.JSONB ["new"],
             productImages =
@@ -218,15 +218,359 @@ setupDb = do
                       },
                     ProductFeature
                       { featureName = "Speeds",
-                        value = "2-Speed  Variable & Reverse"
+                        value = "2-Speed Variable & Reverse"
+                      }
+                  ]
+          },
+        Product
+          { productTitle = "Erbauer ECDT18-Li-2 18V Li-Ion EXT Brushless Cordless Combi Drill - Bare ",
+            productCategory = drills,
+            productDescription =
+              Just
+                "Powerful and versatile combi drill with 24 torque settings, plus drill and hammer drill. Equipped with a brushless motor. Advanced brushless motor technology for more power and higher torque.",
+            productPrice = 119.99,
+            productBadges = Just $ PJSON.JSONB ["new"],
+            productImages =
+              Just $
+                PJSON.JSONB
+                  [ "images/products/Bosch GSB 18 V-50.jpg",
+                    "images/products/Bosch GSB 18 V-50-1.jpg"
+                  ],
+            productRating = 5,
+            productAvailability = True,
+            productOptions = Just $ PJSON.JSONB [],
+            productSpec =
+              Just $
+                PJSON.JSONB
+                  [ ProductSpecType
+                      { specName = "General",
+                        features =
+                          [ ProductFeature
+                              { featureName = "Battery Power",
+                                value = "Does Not Include Battery or Charger"
+                              },
+                            ProductFeature
+                              { featureName = "Max. Torque",
+                                value = "120Nm"
+                              }
+                          ]
+                      },
+                    ProductSpecType
+                      { specName = "Dimensions and Weight",
+                        features =
+                          [ ProductFeature
+                              { featureName = "Product Length",
+                                value = "203 mm"
+                              },
+                            ProductFeature
+                              { featureName = "Tool Weight without Battery",
+                                value = "1.1 kg"
+                              }
+                          ]
+                      }
+                  ],
+            productFeatures =
+              Just $
+                PJSON.JSONB
+                  [ ProductFeature
+                      { featureName = "Speeds",
+                        value = "2-Speed"
                       }
                   ]
           }
       ]
-
---  _ <- insert $ Category {categoryTitle = "Saws", categoryParentId = Just powerTools}
---  _ <- insert $ Category {categoryTitle = "Sanders", categoryParentId = Just powerTools}
--- popuplating power
+  saws <- insert $ Category {categoryTitle = "Saws", categoryParentId = Just powerTools}
+  void $
+    insertMany_
+      [ Product
+          { productTitle = "Evolution R255SMS-DB 255mm Electric Double-Bevel Sliding Mitre Saw 230V",
+            productCategory = saws,
+            productDescription =
+              Just
+                "Uses a single blade to cut mild steel, non-ferrous metals, plastic and wood, even if nails are embedded in the material. Provides clean and precise cuts no matter the material. Offers a maximum cross cut of 300 x 80mm both ways.",
+            productPrice = 199.99,
+            productBadges = Just $ PJSON.JSONB ["new"],
+            productImages =
+              Just $
+                PJSON.JSONB
+                  [ "images/products/evolution-r255sms-db-255mm.jpg",
+                    "images/products/Bosch GSB 18 V-50-1.jpg"
+                  ],
+            productRating = 5,
+            productAvailability = True,
+            productOptions = Just $ PJSON.JSONB [],
+            productSpec =
+              Just $
+                PJSON.JSONB
+                  [ ProductSpecType
+                      { specName = "General",
+                        features =
+                          [ ProductFeature
+                              { featureName = "Power",
+                                value = "2000W"
+                              },
+                            ProductFeature
+                              { featureName = "No Load Speed",
+                                value = "2500 rpm"
+                              }
+                          ]
+                      },
+                    ProductSpecType
+                      { specName = "Dimensions and Weight",
+                        features =
+                          [ ProductFeature
+                              { featureName = "Blade Diameter",
+                                value = "255 mm"
+                              },
+                            ProductFeature
+                              { featureName = "Corded Tool Weight",
+                                value = "18.5 kg"
+                              }
+                          ]
+                      }
+                  ],
+            productFeatures =
+              Just $
+                PJSON.JSONB
+                  [ ProductFeature
+                      { featureName = "Switch",
+                        value = "Lock-Off Switch"
+                      }
+                  ]
+          },
+        Product
+          { productTitle = "DeWalt DCS391 165mm 18V Li-Ion XR Cordless Circular Saw - Bare",
+            productCategory = saws,
+            productDescription =
+              Just
+                "The DeWalt DCS391 XR circular saw is ideal for working on MDF, plywood and timber and features a 24-tooth TCT blade. The all-metal gearbox gives added durability, while the hex key lets you make any quick on-the-job tweaks.",
+            productPrice = 109.99,
+            productBadges = Just $ PJSON.JSONB ["new"],
+            productImages =
+              Just $
+                PJSON.JSONB
+                  [ "images/products/DeWalt DCS391 165mm 18V.jpg",
+                    "images/products/DeWalt DCS391 165mm 18V-1.jpg"
+                  ],
+            productRating = 5,
+            productAvailability = True,
+            productOptions = Just $ PJSON.JSONB [],
+            productSpec =
+              Just $
+                PJSON.JSONB
+                  [ ProductSpecType
+                      { specName = "General",
+                        features =
+                          [ ProductFeature
+                              { featureName = "Max. Cutting Depth At 90deg",
+                                value = "55 mm"
+                              },
+                            ProductFeature
+                              { featureName = "No Load Speed",
+                                value = "3700 rpm"
+                              }
+                          ]
+                      },
+                    ProductSpecType
+                      { specName = "Dimensions and Weight",
+                        features =
+                          [ ProductFeature
+                              { featureName = "Product Length",
+                                value = "360 mm"
+                              },
+                            ProductFeature
+                              { featureName = "Tool Weight without Battery",
+                                value = "3.2 kg"
+                              }
+                          ]
+                      }
+                  ],
+            productFeatures =
+              Just $
+                PJSON.JSONB
+                  [ ProductFeature
+                      { featureName = "Speeds",
+                        value = "2-Speed"
+                      },
+                    ProductFeature
+                      { featureName = "Blade",
+                        value = "TCT Blade"
+                      }
+                  ]
+          },
+        Product
+          { productTitle = "Evolution R185SMS 185mm Electric Single-Bevel Sliding Mitre Saw 240V ",
+            productCategory = saws,
+            productDescription =
+              Just
+                "Use a single blade to cut mild steel, non-ferrous metals, plastic and wood, even if nails are embedded in the material. Provides clean and precise cuts no matter the material. Durable die-cast aluminium base supports a variety of heavy duty materials.",
+            productPrice = 99.99,
+            productBadges = Just $ PJSON.JSONB ["new"],
+            productImages =
+              Just $
+                PJSON.JSONB
+                  [ "images/products/Evolution R185SMS 185mm.jpg",
+                    "images/products/Evolution R185SMS 185mm-1.jpg",
+                    "images/products/Evolution R185SMS 185mm-2.jpg"
+                  ],
+            productRating = 5,
+            productAvailability = True,
+            productOptions = Just $ PJSON.JSONB [],
+            productSpec =
+              Just $
+                PJSON.JSONB
+                  [ ProductSpecType
+                      { specName = "General",
+                        features =
+                          [ ProductFeature
+                              { featureName = "Power",
+                                value = "1000W"
+                              },
+                            ProductFeature
+                              { featureName = "Max. Cutting Depth At 90deg",
+                                value = "75 mm"
+                              },
+                            ProductFeature
+                              { featureName = "No Load Speed",
+                                value = "3700 rpm"
+                              }
+                          ]
+                      },
+                    ProductSpecType
+                      { specName = "Dimensions and Weight",
+                        features =
+                          [ ProductFeature
+                              { featureName = "Blade Diameter",
+                                value = "185 mm"
+                              },
+                            ProductFeature
+                              { featureName = "Corded Tool Weight",
+                                value = "9.9 kg"
+                              }
+                          ]
+                      }
+                  ],
+            productFeatures = Just $ PJSON.JSONB []
+          }
+      ]
+  sanders <- insert $ Category {categoryTitle = "Sanders", categoryParentId = Just powerTools}
+  void $
+    insertMany_
+      [ Product
+          { productTitle = "Mac Allister MSDLS160 160W Electric Detail Sander 220-240V",
+            productCategory = sanders,
+            productDescription =
+              Just
+                "Compact detail sander. Ideal for small surfaces and intricate sanding tasks around the home. Supplied with sanding paper, dust bag and vacuum adaptor.",
+            productPrice = 19.99,
+            productBadges = Just $ PJSON.JSONB ["new"],
+            productImages =
+              Just $
+                PJSON.JSONB
+                  [ "images/products/Mac Allister MSDLS160 160W.jpg"
+                  ],
+            productRating = 5,
+            productAvailability = True,
+            productOptions = Just $ PJSON.JSONB [],
+            productSpec =
+              Just $
+                PJSON.JSONB
+                  [ ProductSpecType
+                      { specName = "General",
+                        features =
+                          [ ProductFeature
+                              { featureName = "Power",
+                                value = "160W"
+                              },
+                            ProductFeature
+                              { featureName = "Brushless",
+                                value = "Brushed"
+                              },
+                            ProductFeature
+                              { featureName = "Handle Type",
+                                value = "Soft-Grip Handle"
+                              },
+                            ProductFeature
+                              { featureName = "Orbits Per Minute",
+                                value = "12,000 opm"
+                              }
+                          ]
+                      },
+                    ProductSpecType
+                      { specName = "Dimensions and Weight",
+                        features =
+                          [ ProductFeature
+                              { featureName = "Sanding Surface Length",
+                                value = "147 mm"
+                              },
+                            ProductFeature
+                              { featureName = "Sanding Surface Width",
+                                value = "100 mm"
+                              },
+                            ProductFeature
+                              { featureName = "Corded Tool Weight",
+                                value = "1.5 kg"
+                              }
+                          ]
+                      }
+                  ],
+            productFeatures = Just $ PJSON.JSONB []
+          },
+        Product
+          { productTitle = "Erbauer ERO450 150mm Electric Random Orbit Sander 220-240V",
+            productCategory = sanders,
+            productDescription =
+              Just
+                "Powerful orbit sander with rapid sheet-changing system and a cyclonic dust collection system for capturing and removing dust from air and work areas. Supplied with 3 x sanding sheets and a carry bag.",
+            productPrice = 79.99,
+            productBadges = Just $ PJSON.JSONB ["new"],
+            productImages =
+              Just $
+                PJSON.JSONB
+                  [ "images/products/Erbauer ERO450 150mm Electric.jpg",
+                    "images/products/Erbauer ERO450 150mm Electric-1.jpg"
+                  ],
+            productRating = 5,
+            productAvailability = True,
+            productOptions = Just $ PJSON.JSONB [],
+            productSpec =
+              Just $
+                PJSON.JSONB
+                  [ ProductSpecType
+                      { specName = "General",
+                        features =
+                          [ ProductFeature
+                              { featureName = "Power",
+                                value = "450W"
+                              },
+                            ProductFeature
+                              { featureName = "Brushless",
+                                value = "Brushed"
+                              },
+                            ProductFeature
+                              { featureName = "Handle Type",
+                                value = "Rubber Overmould Grip"
+                              },
+                            ProductFeature
+                              { featureName = "Orbits Per Minute",
+                                value = "5000-12,000 opm"
+                              }
+                          ]
+                      },
+                    ProductSpecType
+                      { specName = "Dimensions and Weight",
+                        features =
+                          [ ProductFeature
+                              { featureName = "Sanding Disc Diameter",
+                                value = "150 mm"
+                              }
+                         
+                          ]
+                      }
+                  ],
+            productFeatures = Just $ PJSON.JSONB []
+          }
+      ]
 
 -- populating hand tools cat
 --  handTools <- insert $ Category "Hand Tools" Nothing
