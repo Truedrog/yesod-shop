@@ -564,7 +564,313 @@ setupDb = do
                               { featureName = "Sanding Disc Diameter",
                                 value = "150 mm"
                               }
-                         
+                          ]
+                      }
+                  ],
+            productFeatures = Just $ PJSON.JSONB []
+          },
+        Product
+          { productTitle = "Makita 9403 / 2 4'' Electric Belt Sander 240V",
+            productCategory = sanders,
+            productDescription =
+              Just
+                "Powerful, heavy duty belt sander. Suitable for sanding large surface areas. Features simple alignment and fast belt replacement for maximum efficiency. Supplied with abrasive belt, dust nozzle and dust collection bag.",
+            productPrice = 79.99,
+            productBadges = Just $ PJSON.JSONB ["new"],
+            productImages =
+              Just $
+                PJSON.JSONB
+                  [ "images/products/Erbauer ERO450 150mm Electric.jpg",
+                    "images/products/Erbauer ERO450 150mm Electric-1.jpg"
+                  ],
+            productRating = 5,
+            productAvailability = True,
+            productOptions = Just $ PJSON.JSONB [],
+            productSpec =
+              Just $
+                PJSON.JSONB
+                  [ ProductSpecType
+                      { specName = "General",
+                        features =
+                          [ ProductFeature
+                              { featureName = "Power",
+                                value = "1200W"
+                              },
+                            ProductFeature
+                              { featureName = "Brushless",
+                                value = "Brushed"
+                              },
+                            ProductFeature
+                              { featureName = "No Load Speed",
+                                value = "500 m/min"
+                              }
+                          ]
+                      },
+                    ProductSpecType
+                      { specName = "Dimensions and Weight",
+                        features =
+                          [ ProductFeature
+                              { featureName = "Sanding Surface Length",
+                                value = "260 mm"
+                              },
+                            ProductFeature
+                              { featureName = "Sanding Surface Width",
+                                value = "100 mm"
+                              },
+                            ProductFeature
+                              { featureName = "Product Length",
+                                value = "406 mm"
+                              },
+                            ProductFeature
+                              { featureName = "Corded Tool Weight",
+                                value = "5.7 kg"
+                              }
+                          ]
+                      }
+                  ],
+            productFeatures = Just $ PJSON.JSONB []
+          }
+      ]
+  polishes <- insert $ Category {categoryTitle = "Polishers", categoryParentId = Just powerTools}
+  void $
+    insertMany_
+      [ Product
+          { productTitle = "Milwaukee M12 BPS-421X 50mm 12V 2.0 & 4.0Ah Li-Ion RedLithium Cordless Sub-Compact Sander / Polisher",
+            productCategory = polishes,
+            productDescription =
+              Just
+                "High performance 4-pole motor which delivers up to 8300rpm for maximum productivity. RedLink overload protection and constant speed electronics deliver durability and performance. Supplied with Dynacase.",
+            productPrice = 159.99,
+            productBadges = Just $ PJSON.JSONB ["new"],
+            productImages =
+              Just $
+                PJSON.JSONB
+                  [ "images/products/Milwaukee M12 BPS-421X.jpg",
+                    "images/products/Milwaukee M12 BPS-421X-1.jpg"
+                  ],
+            productRating = 5,
+            productAvailability = True,
+            productOptions = Just $ PJSON.JSONB [],
+            productSpec =
+              Just $
+                PJSON.JSONB
+                  [ ProductSpecType
+                      { specName = "General",
+                        features =
+                          [ ProductFeature
+                              { featureName = "Batteries",
+                                value = "1 x 2.0Ah & 1 x 4.0Ah Li-Ion Batteries"
+                              },
+                            ProductFeature
+                              { featureName = "Charge Time",
+                                value = "80min"
+                              },
+                            ProductFeature
+                              { featureName = "Handle Type",
+                                value = "Rubber Overmould Grip"
+                              },
+                            ProductFeature
+                              { featureName = "Brushless",
+                                value = "Brushed"
+                              }
+                          ]
+                      },
+                    ProductSpecType
+                      { specName = "Dimensions and Weight",
+                        features =
+                          [ ProductFeature
+                              { featureName = "Sanding Disc Diameter",
+                                value = "50 mm"
+                              },
+                            ProductFeature
+                              { featureName = "Orbit Diameter",
+                                value = "76 mm"
+                              },
+                            ProductFeature
+                              { featureName = "Tool Weight with Battery",
+                                value = "1.45 kg"
+                              }
+                          ]
+                      }
+                  ],
+            productFeatures = Just $ PJSON.JSONB []
+          },
+        Product
+          { productTitle = "Makita PO6000C/2 Electric Random Orbital Polisher 240V",
+            productCategory = polishes,
+            productDescription =
+              Just
+                "Random orbit with forced rotation for scratch polishing and random orbit for final polishing or wax coating. Enhanced manoeuvrability with the switch being operable whilst the side handle is held and an easy-grip head enables sideway work as well as bonnet conditioning.",
+            productPrice = 249.99,
+            productBadges = Just $ PJSON.JSONB ["new"],
+            productImages =
+              Just $
+                PJSON.JSONB
+                  [ "images/products/Makita PO6000C Electric.jpg"
+                  ],
+            productRating = 5,
+            productAvailability = True,
+            productOptions = Just $ PJSON.JSONB [],
+            productSpec =
+              Just $
+                PJSON.JSONB
+                  [ ProductSpecType
+                      { specName = "General",
+                        features =
+                          [ ProductFeature
+                              { featureName = "Handle Type",
+                                value = "Ergonomic Grip"
+                              },
+                            ProductFeature
+                              { featureName = "Power",
+                                value = "900 W"
+                              },
+                            ProductFeature
+                              { featureName = "Brushless",
+                                value = "Brushed"
+                              }
+                          ]
+                      },
+                    ProductSpecType
+                      { specName = "Dimensions and Weight",
+                        features =
+                          [ ProductFeature
+                              { featureName = "Sanding Disc Diameter",
+                                value = "50 mm"
+                              },
+                            ProductFeature
+                              { featureName = "Orbit Diameter",
+                                value = "76 mm"
+                              },
+                            ProductFeature
+                              { featureName = "Corded Tool Weight",
+                                value = "2.8 kg"
+                              }
+                          ]
+                      }
+                  ],
+            productFeatures = Just $ PJSON.JSONB []
+          },
+        Product
+          { productTitle = "Flex PE8 Electric Rotary Polisher 240V",
+            productCategory = polishes,
+            productDescription =
+              Just
+                "Positive-drive orbital polisher with VR microprocessor control, constant speed control and a continuous speed control trigger. For added safety polisher features power failure restart protection, overload protection and temperature monitoring.",
+            productPrice = 339.99,
+            productBadges = Just $ PJSON.JSONB ["new"],
+            productImages =
+              Just $
+                PJSON.JSONB
+                  [ "images/products/Flex PE8 Electric.jpg"
+                  ],
+            productRating = 5,
+            productAvailability = True,
+            productOptions = Just $ PJSON.JSONB [],
+            productSpec =
+              Just $
+                PJSON.JSONB
+                  [ ProductSpecType
+                      { specName = "General",
+                        features =
+                          [ ProductFeature
+                              { featureName = "Handle Type",
+                                value = "Ergonomic Handle"
+                              },
+                            ProductFeature
+                              { featureName = "Power",
+                                value = "900W"
+                              },
+                            ProductFeature
+                              { featureName = "Brushless",
+                                value = "Brushed"
+                              }
+                          ]
+                      },
+                    ProductSpecType
+                      { specName = "Dimensions and Weight",
+                        features =
+                          [ ProductFeature
+                              { featureName = "No Load Speed",
+                                value = "160-480 rpm"
+                              },
+                            ProductFeature
+                              { featureName = "Corded Tool Weight",
+                                value = "2.6 kg"
+                              }
+                          ]
+                      }
+                  ],
+            productFeatures = Just $ PJSON.JSONB []
+          }
+      ]
+  -- populating hand tools cat
+  handTools <- insert $ Category "Hand Tools" Nothing
+  pliersAndCutters <- insert $ Category {categoryTitle = "Pliers & Cutters", categoryParentId = Just handTools}
+  void $
+    insertMany_
+      [ Product
+          { productTitle = "STANLEY FATMAX GROOVE JOINT PLIERS 10'' (250MM) (74176)",
+            productCategory = pliersAndCutters,
+            productDescription =
+              Just
+                "Versatile multi-grip pliers with induction-hardened jaws. Easy to use PushLock adjustment button.",
+            productPrice = 9.99,
+            productBadges = Just $ PJSON.JSONB ["new"],
+            productImages =
+              Just $
+                PJSON.JSONB
+                  [ "images/products/STANLEY FATMAX GROOVE JOINT.jpg",
+                    "images/products/STANLEY FATMAX GROOVE JOINT-1.jpg"
+                  ],
+            productRating = 5,
+            productAvailability = True,
+            productOptions = Just $ PJSON.JSONB [],
+            productSpec =
+              Just $
+                PJSON.JSONB
+                  [ ProductSpecType
+                      { specName = "General",
+                        features =
+                          [ ProductFeature {featureName = "Max. Jaw Opening", value = "62 mm"},
+                            ProductFeature {featureName = "Manufacturer Guarantee", value = "1 Year Guarantee"}
+                          ]
+                      },
+                    ProductSpecType
+                      { specName = "Dimensions and Weight",
+                        features =
+                          [ ProductFeature {featureName = "Length", value = "250 mm"},
+                            ProductFeature {featureName = "Total Product Weight", value = "0.362 kg"}
+                          ]
+                      }
+                  ],
+            productFeatures = Just $ PJSON.JSONB []
+          },
+        Product
+          { productTitle = "C.K AUTOMATIC WIRE STRIPPER (97204)",
+            productCategory = pliersAndCutters,
+            productDescription =
+              Just
+                "For stripping flat or round cable and wire. Features an integrated wire cutter with micro-adjustment knob for stripping wires smaller than 0.2mmР В Р’В Р вЂ™Р’В Р В РІР‚в„ўР вЂ™Р’В Р В Р’В Р В РІР‚В Р В Р’В Р Р†Р вЂљРЎв„ўР В Р вЂ Р Р†Р вЂљРЎвЂєР РЋРЎвЂєР В Р’В Р вЂ™Р’В Р В РІР‚в„ўР вЂ™Р’В Р В Р’В Р В РІР‚В Р В Р’В Р Р†Р вЂљРЎв„ўР В РІР‚в„ўР вЂ™Р’В , crimping jaws for insulated or non-insulated terminals and an integral stripping length stop for consistent results.",
+            productPrice = 9.99,
+            productBadges = Just $ PJSON.JSONB ["new"],
+            productImages = Just $ PJSON.JSONB ["images/products/C.K AUTOMATIC WIRE STRIPPER.jpg"],
+            productRating = 5,
+            productAvailability = True,
+            productOptions = Just $ PJSON.JSONB [],
+            productSpec =
+              Just $
+                PJSON.JSONB
+                  [ ProductSpecType
+                      { specName = "General",
+                        features = [ProductFeature {featureName = "Manufacturer Guarantee", value = "1 Year Guarantee"}]
+                      },
+                    ProductSpecType
+                      { specName = "Dimensions and Weight",
+                        features =
+                          [ ProductFeature {featureName = "Length", value = "265 mm"},
+                            ProductFeature {featureName = "Pliers/Cutters Overall Length (Band)", value = "200-299mm"},
+                            ProductFeature {featureName = "Total Product Weight", value = "0.309 kg"}
                           ]
                       }
                   ],
@@ -572,8 +878,6 @@ setupDb = do
           }
       ]
 
--- populating hand tools cat
---  handTools <- insert $ Category "Hand Tools" Nothing
 --  _ <- insert $ Category {categoryTitle = "Hand Tool Kits", categoryParentId = Just handTools}
 --  _ <- insert $ Category {categoryTitle = "Sockets & Spanners", categoryParentId = Just handTools}
 --  _ <- insert $ Category {categoryTitle = "Screwdrivers & Hex Keys", categoryParentId = Just handTools}
