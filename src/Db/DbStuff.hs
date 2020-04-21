@@ -8,7 +8,7 @@ import Import hiding ((==.), (||.))
 
 setupDb :: (MonadIO m) => SqlPersistT m ()
 setupDb = do
-  cleanDb
+--  cleanDb
   -- populating power Tools category
   powerTools <- insert $ Category "Power Tools" Nothing
   drills <- insert $ Category {categoryTitle = "Drills", categoryParentId = Just powerTools}
@@ -851,7 +851,7 @@ setupDb = do
             productCategory = pliersAndCutters,
             productDescription =
               Just
-                "For stripping flat or round cable and wire. Features an integrated wire cutter with micro-adjustment knob for stripping wires smaller than 0.2mmР В Р’В Р вЂ™Р’В Р В РІР‚в„ўР вЂ™Р’В Р В Р’В Р В РІР‚В Р В Р’В Р Р†Р вЂљРЎв„ўР В Р вЂ Р Р†Р вЂљРЎвЂєР РЋРЎвЂєР В Р’В Р вЂ™Р’В Р В РІР‚в„ўР вЂ™Р’В Р В Р’В Р В РІР‚В Р В Р’В Р Р†Р вЂљРЎв„ўР В РІР‚в„ўР вЂ™Р’В , crimping jaws for insulated or non-insulated terminals and an integral stripping length stop for consistent results.",
+                "For stripping flat or round cable and wire. Features an integrated wire cutter with micro-adjustment knob, crimping jaws for insulated or non-insulated terminals and an integral stripping length stop for consistent results.",
             productPrice = 9.99,
             productBadges = Just $ PJSON.JSONB ["new"],
             productImages = Just $ PJSON.JSONB ["images/products/C.K AUTOMATIC WIRE STRIPPER.jpg"],
@@ -871,6 +871,68 @@ setupDb = do
                           [ ProductFeature {featureName = "Length", value = "265 mm"},
                             ProductFeature {featureName = "Pliers/Cutters Overall Length (Band)", value = "200-299mm"},
                             ProductFeature {featureName = "Total Product Weight", value = "0.309 kg"}
+                          ]
+                      }
+                  ],
+            productFeatures = Just $ PJSON.JSONB []
+          },
+        Product
+          { productTitle = "STANLEY FATMAX AUTOMATIC WIRE STRIPPER (5934K)",
+            productCategory = pliersAndCutters,
+            productDescription =
+              Just
+                "Cuts, strips and crimps wires in seconds. Spring-loaded pliers can strip inner and outer sheaths on wires and cables 0.2-6mm. \
+                \The pliers have crimping capability and are colour coded for crimps on common insulated and non-insulated terminals 1.5-6mm. \
+                \Bi-material handles, allowing easy and comfortable grip.",
+            productPrice = 19.99,
+            productBadges = Just $ PJSON.JSONB ["new"],
+            productImages = Just $ PJSON.JSONB ["images/products/STANLEY FATMAX AUTOMATIC WIRE STRIPPER (5934K).jpg", "STANLEY FATMAX AUTOMATIC WIRE STRIPPER (5934K)-1.jpg"],
+            productRating = 5,
+            productAvailability = True,
+            productOptions = Just $ PJSON.JSONB [],
+            productSpec =
+              Just $
+                PJSON.JSONB
+                  [ ProductSpecType
+                      { specName = "General",
+                        features = [ProductFeature {featureName = "Manufacturer Guarantee", value = "1 Year Guarantee"}]
+                      },
+                    ProductSpecType
+                      { specName = "Dimensions and Weight",
+                        features =
+                          [ ProductFeature {featureName = "Length", value = "203 mm"},
+                            ProductFeature {featureName = "Pliers/Cutters Overall Length (Band)", value = "200-299mm"},
+                            ProductFeature {featureName = "Total Product Weight", value = "0.3 kg"}
+                          ]
+                      }
+                  ],
+            productFeatures = Just $ PJSON.JSONB []
+          },
+        Product
+          { productTitle = "LOCKING PLIERS SET 3 PIECES",
+            productCategory = pliersAndCutters,
+            productDescription =
+              Just
+                "High grade heat-treated steel alloy construction. Classic trigger release designed to provide maximum locking force. Hardened teeth designed to grip from any angle.",
+            productPrice = 8.99,
+            productBadges = Just $ PJSON.JSONB ["new"],
+            productImages = Just $ PJSON.JSONB ["images/products/LOCKING PLIERS SET 3 PIECES.jpg"],
+            productRating = 5,
+            productAvailability = True,
+            productOptions = Just $ PJSON.JSONB [],
+            productSpec =
+              Just $
+                PJSON.JSONB
+                  [ ProductSpecType
+                      { specName = "General",
+                        features = [ProductFeature {featureName = "Manufacturer Guarantee", value = "1 Year Guarantee"}]
+                      },
+                    ProductSpecType
+                      { specName = "Dimensions and Weight",
+                        features =
+                          [ ProductFeature {featureName = "Length", value = "127-229 mm"},
+                            ProductFeature {featureName = "Pliers/Cutters Overall Length (Band)", value = "Mixed"},
+                            ProductFeature {featureName = "Total Product Weight", value = "0.9 kg"}
                           ]
                       }
                   ],

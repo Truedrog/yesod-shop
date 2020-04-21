@@ -7,7 +7,7 @@ import Db.DbStuff
 
 getCatsR :: Handler Import.Value
 getCatsR = do
-  _    <- runDB $ setupDb
+--  _    <- runDB $ setupDb
   cats <- runDB $ statement
   products <- runDB $ selectProducts
   returnJson (cats, products)

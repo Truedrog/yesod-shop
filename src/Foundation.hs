@@ -7,6 +7,8 @@ import Control.Monad.Logger (LogSource)
 import qualified Data.Text.Lazy.Encoding as TE
 import Import.NoFoundation
 import Network.Mail.Mime
+import Network.Wai (Middleware)
+import Network.Wai.Middleware.Rewrite (PathsAndQueries, rewritePureWithQueries)
 import Routes
 import Text.Blaze.Html.Renderer.Utf8 (renderHtml)
 import Text.Shakespeare.Text (stext)
@@ -23,9 +25,32 @@ type Form x = Html -> MForm (HandlerFor App) (FormResult x, Widget)
 -- | A convenient synonym for database access functions.
 type DB a = forall (m :: * -> *). (MonadIO m) => ReaderT SqlBackend m a
 
+rewriteAuthRoutes :: Middleware
+rewriteAuthRoutes = rewritePureWithQueries rw
+  where
+    plugin :: [Text]
+    plugin = ["client", "page", "email"]
+    rw :: PathsAndQueries -> RequestHeaders -> PathsAndQueries
+    rw (["register"], _) _ = (plugin <> ["register"], [])
+    rw (["confirm", token], _) _ = (plugin <> ["confirm", token], [])
+    rw (["confirmation-email-sent"], _) _ = (plugin <> ["confirmation-email-sent"], [])
+    rw (["login"], _) _ = (plugin <> ["login"], [])
+    rw (["reset-password"], _) _ = (plugin <> ["reset-password"], [])
+    rw (["reset-password-email-sent"], _) _ = (plugin <> ["reset-password-email-sent"], [])
+    rw (["logout"], _) _ = (["client", "logout"], [])
+    rw (path, qs) _ = (path, qs)
+
 -- Please see the documentation for the Yesod typeclass. There are a number
 -- of settings which can be configured by overriding methods here.
 instance Yesod App where
+  urlParamRenderOverride y r _ =
+    let root = fromMaybe "" (appRoot (appSettings y))
+        toRoute p = Just $ uncurry (joinPath y root) (p, [])
+     in case r of
+          (AuthR LoginR) -> toRoute ["login"]
+          (AuthR LogoutR) -> toRoute ["logout"]
+          (AuthR (PluginR "email" p)) -> toRoute p
+          _ -> Nothing
   errorHandler NotFound = redirectWith status307 HomeR
   errorHandler other = defaultErrorHandler other
   approot :: Approot App
