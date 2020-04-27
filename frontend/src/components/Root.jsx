@@ -59,12 +59,6 @@ class Root extends Component {
                         <ScrollContext>
                             <Switch>
                                 <Route
-                                    path="/home-two"
-                                    render={(props) => (
-                                        <Layout {...props} headerLayout="compact" homeComponent={HomePageTwo} />
-                                    )}
-                                />
-                                <Route
                                     path="/"
                                     render={(props) => (
                                         <Layout {...props} headerLayout="default" homeComponent={HomePageOne} />

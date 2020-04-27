@@ -29,7 +29,7 @@ rewriteAuthRoutes :: Middleware
 rewriteAuthRoutes = rewritePureWithQueries rw
   where
     plugin :: [Text]
-    plugin = ["client", "page", "email"]
+    plugin = ["auth", "page", "email"]
     rw :: PathsAndQueries -> RequestHeaders -> PathsAndQueries
     rw (["register"], _) _ = (plugin <> ["register"], [])
     rw (["confirm", token], _) _ = (plugin <> ["confirm", token], [])
@@ -37,7 +37,7 @@ rewriteAuthRoutes = rewritePureWithQueries rw
     rw (["login"], _) _ = (plugin <> ["login"], [])
     rw (["reset-password"], _) _ = (plugin <> ["reset-password"], [])
     rw (["reset-password-email-sent"], _) _ = (plugin <> ["reset-password-email-sent"], [])
-    rw (["logout"], _) _ = (["client", "logout"], [])
+    rw (["logout"], _) _ = (["auth", "logout"], [])
     rw (path, qs) _ = (path, qs)
 
 -- Please see the documentation for the Yesod typeclass. There are a number

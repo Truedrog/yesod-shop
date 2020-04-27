@@ -1,14 +1,13 @@
 module Db.DbStuff (setupDb, cleanDb) where
 
 import Database.Esqueleto hiding (from, on)
---import Database.Esqueleto.Experimental
 import qualified Database.Esqueleto.PostgreSQL.JSON as PJSON
 import Db.DbTypes
 import Import hiding ((==.), (||.))
 
 setupDb :: (MonadIO m) => SqlPersistT m ()
 setupDb = do
---  cleanDb
+  --  cleanDb
   -- populating power Tools category
   powerTools <- insert $ Category "Power Tools" Nothing
   drills <- insert $ Category {categoryTitle = "Drills", categoryParentId = Just powerTools}

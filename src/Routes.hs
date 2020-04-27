@@ -11,6 +11,6 @@ mkYesodData "App" [parseRoutes|
 
 / HomeR GET
 
-/client   AuthR   Auth   getAuth
+/auth   AuthR   Auth   getAuth
 /api/cats CatsR GET
 |]
