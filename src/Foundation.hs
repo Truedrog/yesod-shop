@@ -9,11 +9,20 @@ import Import.NoFoundation
 import Network.Mail.Mime
 import Network.Wai (Middleware)
 import Network.Wai.Middleware.Rewrite (PathsAndQueries, rewritePureWithQueries)
-import Routes
 import Text.Blaze.Html.Renderer.Utf8 (renderHtml)
 import Text.Shakespeare.Text (stext)
 import Yesod.Core.Types (Logger)
 import qualified Yesod.Core.Unsafe as Unsafe
+
+-- Note that this is really half the story; in Application.hs, mkYesodDispatch
+-- generates the rest of the code. Please see the following documentation
+-- for an explanation for this split:
+-- http://www.yesodweb.com/book/scaffolding-and-the-site-template#scaffolding-and-the-site-template_foundation_and_application_modules
+--
+-- This function also generates the following type synonyms:
+-- type Handler = HandlerFor App
+-- type Widget = WidgetFor App ()
+mkYesodData "App" $(parseRoutesFile "config/routes")
 
 -- | Cookie name used for the sessions of this example app.
 sessionCookieName :: Text
@@ -78,7 +87,11 @@ instance Yesod App where
   -- Routes not requiring authenitcation.
   --  isAuthorized DataR False = isAuthenticated
   -- Default to Authorized for now.
-  isAuthorized _ _ = return Authorized
+  isAuthorized HomeR _ = return Authorized
+  isAuthorized (AuthR _) _ = return Authorized
+  isAuthorized CatsR _ = return Authorized
+  isAuthorized (ProductR _) _ = return Authorized
+  isAuthorized (StaticR _) _ = return Authorized
 
   -- What messages should be logged. The following includes all messages when
   -- in development, and warnings and errors in production.

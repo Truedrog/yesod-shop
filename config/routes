@@ -1,0 +1,7 @@
+/assets StaticR Static appStatic
+
+/ HomeR GET
+
+/auth   AuthR   Auth   getAuth
+/api/cats CatsR GET
+/api/product/#ProductId ProductR GET

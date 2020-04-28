@@ -35,4 +35,11 @@ module.exports = {
         'react/jsx-props-no-spreading': [0],
         'react/jsx-fragments': ['error', 'element'],
     },
+    "overrides": [
+        {
+            "rules": {
+                "max-len": "warn"
+            }
+        }
+    ]
 };

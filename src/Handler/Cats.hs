@@ -1,10 +1,9 @@
 {-# LANGUAGE TypeApplications #-}
 
-module Handler.Data where
+module Handler.Cats where
 
-import Data.Aeson.Types (Pair)
 import qualified Data.Map as M
-import Database.Esqueleto hiding (from, on)
+import Database.Esqueleto hiding (Value, from, on)
 import Database.Esqueleto.Experimental
 import Import hiding ((==.), isNothing, on)
 
@@ -31,25 +30,22 @@ instance ToJSON Link where
           "links" .= links
         ]
 
-stripNulls :: [Pair] -> [Pair]
-stripNulls xs = filter (\(_, v) -> v /= Null) xs
-
-getCatsR :: Handler Import.Value
+getCatsR :: Handler Value
 getCatsR = do
-  cats <- runDB $ selectCats
+  cats <- runDB selectCats
   returnJson $ M.elems $
     M.fromListWith
       (<>)
-      [ ( fromSqlKey id,
+      [ ( fromSqlKey catId,
           Link {title = Just title, links = Just [Link {title = subTitle, links = Nothing}]}
         )
         | (cat, subcat) <- cats,
-          let id = entityKey $ cat,
+          let catId = entityKey cat,
           let title = categoryTitle . entityVal $ cat,
           let subTitle = categoryTitle . entityVal <$> subcat
       ]
 
-selectCats :: (MonadIO m) => SqlReadT m [(Entity Category, Maybe (Entity Category))]
+selectCats :: DB [(Entity Category, Maybe (Entity Category))]
 selectCats =
   select $ do
     (root :& subcat) <-
