@@ -27,4 +27,5 @@ Product json
 Category json
     title Text
     parentId CategoryId Maybe
+    url Text Maybe
     deriving Eq Show Typeable

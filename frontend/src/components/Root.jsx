@@ -21,7 +21,7 @@ import { localeChange } from '../store/locale';
 // pages
 import Layout from './Layout';
 import HomePageOne from './home/HomePageOne';
-import HomePageTwo from './home/HomePageTwo';
+// import HomePageTwo from './home/HomePageTwo';
 
 
 class Root extends Component {

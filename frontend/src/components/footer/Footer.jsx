@@ -12,7 +12,7 @@ import theme from '../../data/theme';
 
 export default function Footer() {
     const informationLinks = [
-        { title: 'About Us', url: '' },
+        { title: 'About Us', url: '/site/about-us' },
         { title: 'Delivery Information', url: '' },
         { title: 'Privacy Policy', url: '' },
         { title: 'Brands', url: '' },

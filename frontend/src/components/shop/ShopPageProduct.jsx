@@ -1,22 +1,17 @@
 // react
-import React from 'react';
-
+import React, {useEffect, useState} from 'react';
 // third-party
 import PropTypes from 'prop-types';
-import { Helmet } from 'react-helmet-async';
-
+import {Helmet} from 'react-helmet-async';
 // application
 import PageHeader from '../shared/PageHeader';
 import Product from '../shared/Product';
 import ProductTabs from './ProductTabs';
-
 // blocks
 import BlockProductsCarousel from '../blocks/BlockProductsCarousel';
-
 // widgets
 import WidgetCategories from '../widgets/WidgetCategories';
 import WidgetProducts from '../widgets/WidgetProducts';
-
 // data stubs
 import categories from '../../data/shopWidgetCategories';
 import products from '../../data/shopProducts';
@@ -24,19 +19,41 @@ import theme from '../../data/theme';
 
 
 function ShopPageProduct(props) {
-    const { layout, sidebarPosition, match } = props;
-    let product;
+    const {layout, sidebarPosition, match, history} = props;
+    const [product, setProduct] = useState(null);
+    const [category, setCategory] = useState(null);
+    const [loading, setLoading] = useState(true);
 
-    if (match.params.productId) {
-        product = products.find((x) => x.id === parseFloat(match.params.productId));
-    } else {
-        product = products[products.length - 1];
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const res = await fetch(`/api/product/${parseFloat(match.params.productId)}`);
+                const response = await res.json();
+                if (response.status === "error") {
+                    history.push('/site/not-found');
+                } else {
+                    setCategory(response.result.category)
+                    setProduct(response.result.product)
+                    setLoading(false);
+                }
+                console.log(response)
+            } catch (e) {
+                console.log(e);
+            }
+        }
+        fetchData();
+    }, []);
+
+    if (loading) {
+        return (
+            <div>Loading...</div>
+        )
     }
 
     const breadcrumb = [
-        { title: 'Home', url: '' },
-        { title: 'Screwdrivers', url: '' },
-        { title: product.name, url: '' },
+        {title: 'Home', url: '/'},
+        {title: category.title, url: ''},
+        {title: product.title, url: ''},
     ];
 
     let content;
@@ -46,10 +63,10 @@ function ShopPageProduct(props) {
             <div className="shop-layout__sidebar">
                 <div className="block block-sidebar">
                     <div className="block-sidebar__item">
-                        <WidgetCategories categories={categories} location="shop" />
+                        <WidgetCategories categories={categories} location="shop"/>
                     </div>
                     <div className="block-sidebar__item d-none d-lg-block">
-                        <WidgetProducts title="Latest Products" products={products.slice(0, 5)} />
+                        <WidgetProducts title="Latest Products" products={products.slice(0, 5)}/>
                     </div>
                 </div>
             </div>
@@ -61,11 +78,12 @@ function ShopPageProduct(props) {
                     {sidebarPosition === 'start' && sidebar}
                     <div className=" shop-layout__content">
                         <div className=" block">
-                            <Product product={product} layout={layout} />
-                            <ProductTabs withSidebar />
+                            <Product product={product} layout={layout}/>
+                            <ProductTabs withSidebar/>
                         </div>
 
-                        <BlockProductsCarousel title="Related Products" layout="grid-4-sm" products={products} withSidebar />
+                        <BlockProductsCarousel title="Related Products" layout="grid-4-sm" products={products}
+                                               withSidebar/>
                     </div>
                     {sidebarPosition === 'end' && sidebar}
                 </div>
@@ -76,12 +94,12 @@ function ShopPageProduct(props) {
             <React.Fragment>
                 <div className="block">
                     <div className="container">
-                        <Product product={product} layout={layout} />
-                        <ProductTabs />
+                        <Product product={product} layout={layout}/>
+                        <ProductTabs/>
                     </div>
                 </div>
 
-                <BlockProductsCarousel title="Related Products" layout="grid-5" products={products} />
+                <BlockProductsCarousel title="Related Products" layout="grid-5" products={products}/>
             </React.Fragment>
         );
     }
@@ -89,12 +107,12 @@ function ShopPageProduct(props) {
     return (
         <React.Fragment>
             <Helmet>
-                <title>{`${product.name} — ${theme.name}`}</title>
+                <title>{`${product.title} — ${theme.title}`}</title>
             </Helmet>
 
-            <PageHeader breadcrumb={breadcrumb} />
+            <PageHeader breadcrumb={breadcrumb}/>
 
-            {content}
+            {content})
         </React.Fragment>
     );
 }

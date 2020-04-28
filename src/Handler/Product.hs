@@ -1,6 +1,6 @@
 module Handler.Product where
 
-import Import hiding ((==.), isNothing, on)
+import Import
 
 getProductR :: ProductId -> Handler Value
 getProductR productId = do
@@ -12,9 +12,11 @@ getProductR productId = do
           [ "status" .= ("error" :: Text),
             "description" .= ("not found" :: Text)
           ]
-    Just res ->
+    Just p -> do
+      let catId = productCategory p
+      cat <- runDB $ get catId
       pure $
         object
           [ "status" .= ("ok" :: Text),
-            "result" .= res
+            "result" .= object ["product" .= p, "category" .= cat]
           ]

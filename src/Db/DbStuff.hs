@@ -9,8 +9,8 @@ setupDb :: (MonadIO m) => SqlPersistT m ()
 setupDb = do
   --  cleanDb
   -- populating power Tools category
-  powerTools <- insert $ Category "Power Tools" Nothing
-  drills <- insert $ Category {categoryTitle = "Drills", categoryParentId = Just powerTools}
+  powerTools <- insert $ Category {categoryTitle = "Power Tools", categoryParentId = Nothing, categoryUrl = Just "/powertools"}
+  drills <- insert $ Category {categoryTitle = "Drills", categoryParentId = Just powerTools, categoryUrl = Just "/drills"}
   -- populating drills
   void $
     insertMany_
@@ -278,7 +278,7 @@ setupDb = do
                   ]
           }
       ]
-  saws <- insert $ Category {categoryTitle = "Saws", categoryParentId = Just powerTools}
+  saws <- insert $ Category {categoryTitle = "Saws", categoryParentId = Just powerTools, categoryUrl = Just "/saws"}
   void $
     insertMany_
       [ Product
@@ -452,7 +452,7 @@ setupDb = do
             productFeatures = Just $ PJSON.JSONB []
           }
       ]
-  sanders <- insert $ Category {categoryTitle = "Sanders", categoryParentId = Just powerTools}
+  sanders <- insert $ Category {categoryTitle = "Sanders", categoryParentId = Just powerTools, categoryUrl = Just "/sanders"}
   void $
     insertMany_
       [ Product
@@ -630,7 +630,7 @@ setupDb = do
             productFeatures = Just $ PJSON.JSONB []
           }
       ]
-  polishes <- insert $ Category {categoryTitle = "Polishers", categoryParentId = Just powerTools}
+  polishes <- insert $ Category {categoryTitle = "Polishers", categoryParentId = Just powerTools, categoryUrl = Just "/polishers"}
   void $
     insertMany_
       [ Product
@@ -804,8 +804,8 @@ setupDb = do
           }
       ]
   -- populating hand tools cat
-  handTools <- insert $ Category "Hand Tools" Nothing
-  pliersAndCutters <- insert $ Category {categoryTitle = "Pliers & Cutters", categoryParentId = Just handTools}
+  handTools <- insert $ Category {categoryTitle = "Hand Tools", categoryParentId = Nothing, categoryUrl = Just "/handtools"}
+  pliersAndCutters <- insert $ Category {categoryTitle = "Pliers & Cutters", categoryParentId = Just handTools, categoryUrl = Just "/pliersncutters"}
   void $
     insertMany_
       [ Product

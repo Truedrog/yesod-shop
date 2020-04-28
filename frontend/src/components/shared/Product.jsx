@@ -42,6 +42,7 @@ class Product extends Component {
         } = this.props;
         const { quantity } = this.state;
         let prices;
+        console.log(product)
 
         if (product.compareAtPrice) {
             prices = (
@@ -97,7 +98,7 @@ class Product extends Component {
                                 )}
                             />
                         </div>
-                        <h1 className="product__name">{product.name}</h1>
+                        <h1 className="product__name">{product.title}</h1>
                         <div className="product__rating">
                             <div className="product__rating-stars">
                                 <Rating value={product.rating} />

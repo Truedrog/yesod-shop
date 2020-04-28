@@ -1,5 +1,5 @@
 // react
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 
 // third-party
 import classNames from 'classnames';
@@ -22,8 +22,8 @@ function NavLinks(props) {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const res = await fetch("/api/cats");
-                const response =  await res.json();
+                const res = await fetch('/api/cats');
+                const response = await res.json();
                 setNavs(response);
             } catch (e) {
                 console.log(e);
@@ -31,7 +31,7 @@ function NavLinks(props) {
         };
         fetchData();
     }, []);
-    console.log(navs)
+    console.log(navs);
     const handleMouseEnter = (event) => {
         const { locale } = props;
         const { direction } = languages[locale];
