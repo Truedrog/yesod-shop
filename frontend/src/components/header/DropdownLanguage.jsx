@@ -21,20 +21,20 @@ function DropdownLanguage(props) {
             icon: 'images/languages/language-1.png',
             icon_srcset: 'images/languages/language-1.png 1x, images/languages/language-1@2x.png 2x',
         },
-        {
-            title: 'Russian',
-            locale: 'ru',
-            code: 'RU',
-            icon: 'images/languages/language-2.png',
-            icon_srcset: 'images/languages/language-2.png 1x, images/languages/language-2@2x.png 2x',
-        },
-        {
-            title: 'RTL',
-            locale: 'ar',
-            code: 'RTL',
-            icon: 'images/languages/language-3.png',
-            icon_srcset: 'images/languages/language-3.png 1x, images/languages/language-3@2x.png 2x',
-        },
+        // {
+        //     title: 'Russian',
+        //     locale: 'ru',
+        //     code: 'RU',
+        //     icon: 'images/languages/language-2.png',
+        //     icon_srcset: 'images/languages/language-2.png 1x, images/languages/language-2@2x.png 2x',
+        // },
+        // {
+        //     title: 'RTL',
+        //     locale: 'ar',
+        //     code: 'RTL',
+        //     icon: 'images/languages/language-3.png',
+        //     icon_srcset: 'images/languages/language-3.png 1x, images/languages/language-3@2x.png 2x',
+        // },
     ];
 
     const language = languages.find((x) => x.locale === locale);
@@ -50,7 +50,7 @@ function DropdownLanguage(props) {
     return (
         <Dropdown
             title={title}
-            withIcons
+            // withIcons
             items={languages}
             onClick={(item) => changeLocale(item.locale)}
         />

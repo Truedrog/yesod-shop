@@ -23,17 +23,17 @@ function Header(props) {
                 <div className="site-header__logo">
                     <Link to="/"><LogoSvg /></Link>
                 </div>
-                <div className="site-header__search">
-                    <Search context="header" />
-                </div>
-                <div className="site-header__phone">
-                    <div className="site-header__phone-title">
-                        <FormattedMessage id="header.phoneLabel" defaultMessage="Customer Service" />
-                    </div>
-                    <div className="site-header__phone-number">
-                        <FormattedMessage id="header.phone" defaultMessage="(800) 060-0730" />
-                    </div>
-                </div>
+                {/*<div className="site-header__search">*/}
+                {/*    <Search context="header" />*/}
+                {/*</div>*/}
+                {/*<div className="site-header__phone">*/}
+                {/*    <div className="site-header__phone-title">*/}
+                {/*        <FormattedMessage id="header.phoneLabel" defaultMessage="Customer Service" />*/}
+                {/*    </div>*/}
+                {/*    <div className="site-header__phone-number">*/}
+                {/*        <FormattedMessage id="header.phone" defaultMessage="(800) 060-0730" />*/}
+                {/*    </div>*/}
+                {/*</div>*/}
             </div>
         );
     }

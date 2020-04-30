@@ -2,7 +2,7 @@
 
 module Handler.Cats where
 
-import qualified Data.Map as M
+import qualified Data.Map.Strict as M
 import Database.Esqueleto hiding (Value, from, on)
 import Database.Esqueleto.Experimental
 import Import hiding ((==.), isNothing, on)

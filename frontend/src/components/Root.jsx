@@ -17,11 +17,12 @@ import { ScrollContext } from 'react-router-scroll-4';
 // application
 import languages from '../i18n';
 import { localeChange } from '../store/locale';
+import {fetchProducts} from "../store/product";
 
 // pages
 import Layout from './Layout';
-import HomePageOne from './home/HomePageOne';
-// import HomePageTwo from './home/HomePageTwo';
+// import HomePageOne from './home/HomePageOne';
+import HomePageTwo from './home/HomePageTwo';
 
 
 class Root extends Component {
@@ -45,10 +46,11 @@ class Root extends Component {
         if (direction !== null) {
             changeLocale(direction === 'rtl' ? 'ar' : 'en');
         }
+        this.props.fetchProducts()
     }
 
     render() {
-        const { locale } = this.props;
+        const { locale, products } = this.props;
         const { messages, direction } = languages[locale];
 
         return (
@@ -61,9 +63,15 @@ class Root extends Component {
                                 <Route
                                     path="/"
                                     render={(props) => (
-                                        <Layout {...props} headerLayout="default" homeComponent={HomePageOne} />
+                                        <Layout {...props} products={products} headerLayout="compact" homeComponent={HomePageTwo} />
                                     )}
                                 />
+                                {/*<Route*/}
+                                {/*    path="/"*/}
+                                {/*    render={(props) => (*/}
+                                {/*        <Layout {...props} headerLayout="default" homeComponent={HomePageOne} />*/}
+                                {/*    )}*/}
+                                {/*/>*/}
                                 <Redirect to="/" />
                             </Switch>
                         </ScrollContext>
@@ -81,10 +89,12 @@ Root.propTypes = {
 
 const mapStateToProps = (state) => ({
     locale: state.locale,
+    products: state.products
 });
 
 const mapDispatchToProps = {
     localeChange,
+    fetchProducts
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Root);

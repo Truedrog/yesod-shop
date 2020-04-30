@@ -5,18 +5,19 @@ import React from 'react';
 import specification from '../../data/shopProductSpec';
 
 
-function ProductTabSpecification() {
-    const sections = specification.map((section, index) => {
+function ProductTabSpecification(props) {
+    const {product} = props;
+    const sections = product.spec.map((section, index) => {
         const features = section.features.map((feature, index) => (
             <div key={index} className="spec__row">
-                <div className="spec__name">{feature.name}</div>
+                <div className="spec__name">{feature.featureName}</div>
                 <div className="spec__value">{feature.value}</div>
             </div>
         ));
 
         return (
             <div key={index} className="spec__section">
-                <h4 className="spec__section-title">{section.name}</h4>
+                <h4 className="spec__section-title">{section.featureName}</h4>
                 {features}
             </div>
         );

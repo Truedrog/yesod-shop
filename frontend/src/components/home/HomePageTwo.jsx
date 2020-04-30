@@ -1,75 +1,81 @@
 // react
-import React from 'react';
-
+import React, {useEffect, useState} from 'react';
 // third-party
-import { Helmet } from 'react-helmet-async';
-
+import {Helmet} from 'react-helmet-async';
 // blocks
 import BlockBanner from '../blocks/BlockBanner';
-import BlockBrands from '../blocks/BlockBrands';
 import BlockCategories from '../blocks/BlockCategories';
-import BlockFeatures from '../blocks/BlockFeatures';
-import BlockPosts from '../blocks/BlockPosts';
 import BlockProductColumns from '../blocks/BlockProductColumns';
 import BlockProducts from '../blocks/BlockProducts';
 import BlockSlideShow from '../blocks/BlockSlideShow';
 import BlockTabbedProductsCarousel from '../blocks/BlockTabbedProductsCarousel';
-
 // data stubs
 import categories from '../../data/shopBlockCategories';
-import posts from '../../data/blogPosts';
-import products from '../../data/shopProducts';
 import theme from '../../data/theme';
+import {connect} from "react-redux";
 
 
-function HomePageTwo() {
+function HomePageTwo(props) {
+    const {products} = props;
+
     const columns = [
         {
             title: 'Top Rated Products',
-            products: products.slice(0, 3),
+            products: products.items.slice(0, 3),
         },
         {
             title: 'Special Offers',
-            products: products.slice(3, 6),
+            products: products.items.slice(3, 6),
         },
         {
             title: 'Bestsellers',
-            products: products.slice(6, 9),
+            products: products.items.slice(6, 9),
         },
     ];
 
+    if(products.loading) {
+        return <div>Loading...</div>
+    }
+
+    console.log(products)
     return (
         <React.Fragment>
             <Helmet>
                 <title>{`Home Page Two — ${theme.name}`}</title>
             </Helmet>
 
-            <BlockSlideShow />
+            <BlockSlideShow/>
 
-            <BlockFeatures layout="boxed" />
+            {/*<BlockFeatures layout="boxed" />*/}
 
-            <BlockTabbedProductsCarousel title="Featured Products" layout="grid-5" rows={2} />
+            <BlockTabbedProductsCarousel products={products} title="Featured Products" layout="grid-5" rows={2} />
 
-            <BlockBanner />
+            <BlockBanner/>
 
             <BlockProducts
                 title="Bestsellers"
                 layout="large-last"
-                featuredProduct={products[0]}
-                products={products.slice(1, 7)}
+                featuredProduct={products.items[0]}
+                products={products.items.slice(1, 7)}
             />
 
-            <BlockCategories title="Popular Categories" layout="compact" categories={categories} />
+            <BlockCategories title="Popular Categories" layout="compact" categories={categories}/>
 
-            <BlockTabbedProductsCarousel title="New Arrivals" layout="grid-5" />
+            {/*<BlockTabbedProductsCarousel title="New Arrivals" layout="grid-5" />*/}
 
-            <BlockPosts title="Latest News" layout="grid-nl" posts={posts} />
+            {/*<BlockPosts title="Latest News" layout="grid-nl" posts={posts} />*/}
 
-            <BlockBrands />
+            {/*<BlockBrands />*/}
 
-            <BlockProductColumns columns={columns} />
+            <BlockProductColumns columns={columns}/>
         </React.Fragment>
     );
 }
+const mapStateToProps = (state) => ({
+    products: state.products
+});
 
-export default HomePageTwo;
+const mapDispatchToProps = {
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(HomePageTwo);

@@ -74,10 +74,10 @@ function ShopPageWishlist(props) {
                     </td>
                     <td className="wishlist__column wishlist__column--price"><Currency value={item.price} /></td>
                     <td className="wishlist__column wishlist__column--tocart">
-                        <AsyncAction
-                            action={() => cartAddItem(item)}
-                            render={renderAddToCarButton}
-                        />
+                        {/*<AsyncAction*/}
+                        {/*    action={() => cartAddItem(item)}*/}
+                        {/*    render={renderAddToCarButton}*/}
+                        {/*/>*/}
                     </td>
                     <td className="wishlist__column wishlist__column--remove">
                         <AsyncAction

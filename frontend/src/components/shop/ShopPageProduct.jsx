@@ -36,7 +36,6 @@ function ShopPageProduct(props) {
                     setProduct(response.result.product)
                     setLoading(false);
                 }
-                console.log(response)
             } catch (e) {
                 console.log(e);
             }
@@ -79,7 +78,7 @@ function ShopPageProduct(props) {
                     <div className=" shop-layout__content">
                         <div className=" block">
                             <Product product={product} layout={layout}/>
-                            <ProductTabs withSidebar/>
+                            <ProductTabs product={product} withSidebar/>
                         </div>
 
                         <BlockProductsCarousel title="Related Products" layout="grid-4-sm" products={products}
@@ -95,7 +94,7 @@ function ShopPageProduct(props) {
                 <div className="block">
                     <div className="container">
                         <Product product={product} layout={layout}/>
-                        <ProductTabs/>
+                        <ProductTabs product={product}/>
                     </div>
                 </div>
 

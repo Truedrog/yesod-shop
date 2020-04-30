@@ -87,11 +87,12 @@ instance Yesod App where
   -- Routes not requiring authenitcation.
   --  isAuthorized DataR False = isAuthenticated
   -- Default to Authorized for now.
-  isAuthorized HomeR _ = return Authorized
-  isAuthorized (AuthR _) _ = return Authorized
-  isAuthorized CatsR _ = return Authorized
-  isAuthorized (ProductR _) _ = return Authorized
-  isAuthorized (StaticR _) _ = return Authorized
+  isAuthorized HomeR _ = pure Authorized
+  isAuthorized (AuthR _) _ = pure Authorized
+  isAuthorized CatsR _ = pure Authorized
+  isAuthorized (ProductR _) _ = pure Authorized
+  isAuthorized ProductsR _ = pure Authorized
+  isAuthorized (StaticR _) _ = pure Authorized
 
   -- What messages should be logged. The following includes all messages when
   -- in development, and warnings and errors in production.

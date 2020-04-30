@@ -31,7 +31,6 @@ function NavLinks(props) {
         };
         fetchData();
     }, []);
-    console.log(navs);
     const handleMouseEnter = (event) => {
         const { locale } = props;
         const { direction } = languages[locale];

@@ -94,12 +94,20 @@ library:
       - -Wall
       - -fwarn-tabs
       - -O0
+      - -Wincomplete-record-updates
+      - -Wincomplete-uni-patterns
+      - -Wpartial-fields
+      - -Wredundant-constraints
       cpp-options: -DDEVELOPMENT
     else:
       ghc-options:
       - -Wall
       - -fwarn-tabs
       - -O2
+      - -Wincomplete-record-updates
+      - -Wincomplete-uni-patterns
+      - -Wpartial-fields
+      - -Wredundant-constraints
 
 # Runnable executable for our application
 executables:

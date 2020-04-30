@@ -169,6 +169,7 @@ export default class BlockProductsCarousel extends Component {
 
         if (rows > 0) {
             products = products.slice();
+            console.log(this.props)
 
             while (products.length > 0) {
                 columns.push(products.splice(0, rows));

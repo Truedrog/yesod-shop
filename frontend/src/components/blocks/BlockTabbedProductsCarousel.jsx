@@ -5,7 +5,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 // application
-import products from '../../data/shopProducts';
+// import products from '../../data/shopProducts';
 
 // data stubs
 import BlockProductsCarousel from './BlockProductsCarousel';
@@ -18,7 +18,7 @@ export default class BlockTabbedProductsCarousel extends Component {
         super(props);
 
         this.state = {
-            products: products.slice(),
+            products: [],
             loading: false,
             groups: [
                 { id: 1, name: 'All', current: true },
@@ -27,6 +27,15 @@ export default class BlockTabbedProductsCarousel extends Component {
                 { id: 4, name: 'Plumbing', current: false },
             ],
         };
+
+        console.log(this.state.products);
+    }
+
+    componentDidMount() {
+        this.setState((prevState, props) => {
+            console.log(props)
+            return {products: props.products.items}
+        });
     }
 
     componentWillUnmount() {
@@ -84,6 +93,8 @@ export default class BlockTabbedProductsCarousel extends Component {
 }
 
 BlockTabbedProductsCarousel.propTypes = {
+    products: PropTypes.array,
+    changeUrl: PropTypes.func,
     title: PropTypes.string.isRequired,
     layout: PropTypes.oneOf(['grid-4', 'grid-4-sm', 'grid-5', 'horizontal']),
     rows: PropTypes.number,
