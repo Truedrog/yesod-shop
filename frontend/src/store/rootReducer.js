@@ -9,7 +9,7 @@ import mobileMenuReducer from './mobile-menu';
 import quickviewReducer from './quickview';
 import sidebarReducer from './sidebar';
 import wishlistReducer from './wishlist';
-import productReducer from './product';
+import products from './product';
 
 
 export default combineReducers({
@@ -21,5 +21,5 @@ export default combineReducers({
     quickview: quickviewReducer,
     sidebar: sidebarReducer,
     wishlist: wishlistReducer,
-    products: productReducer
+    products: products
 });

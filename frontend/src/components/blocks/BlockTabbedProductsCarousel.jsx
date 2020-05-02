@@ -58,7 +58,7 @@ export default class BlockTabbedProductsCarousel extends Component {
 }
 
 BlockTabbedProductsCarousel.propTypes = {
-    products: PropTypes.object,
+    products: PropTypes.array,
     changeUrl: PropTypes.func,
     title: PropTypes.string.isRequired,
     layout: PropTypes.oneOf(['grid-4', 'grid-4-sm', 'grid-5', 'horizontal']),

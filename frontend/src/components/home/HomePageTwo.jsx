@@ -1,9 +1,8 @@
 // react
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 // third-party
 import {Helmet} from 'react-helmet-async';
 import {connect} from "react-redux";
-
 // blocks
 import BlockBanner from '../blocks/BlockBanner';
 import BlockCategories from '../blocks/BlockCategories';
@@ -12,27 +11,28 @@ import BlockProducts from '../blocks/BlockProducts';
 import BlockSlideShow from '../blocks/BlockSlideShow';
 import BlockTabbedProductsCarousel from '../blocks/BlockTabbedProductsCarousel';
 // data stubs
-import categories from '../../data/shopBlockCategories';
 import theme from '../../data/theme';
 import {fetchProducts} from "../../store/product";
+import {getStatus, getVisibleProducts} from "../../store/product/productReducer";
 
 function HomePageTwo(props) {
-    const {products, changeGroup} = props;
+    const {products, productStatus, changeGroup} = props;
 
     const columns = [
         {
             title: 'Top Rated Products',
-            products: products.items.slice(0, 3),
+            products: products.slice(0, 3),
         },
         {
             title: 'Special Offers',
-            products: products.items.slice(3, 6),
+            products: products.slice(3, 6),
         },
         {
             title: 'Bestsellers',
-            products: products.items.slice(6, 9),
+            products: products.slice(6, 9),
         },
     ];
+    console.log(columns)
 
     return (
         <React.Fragment>
@@ -44,7 +44,8 @@ function HomePageTwo(props) {
 
             {/*<BlockFeatures layout="boxed" />*/}
 
-            <BlockTabbedProductsCarousel products={products} changeGroup={changeGroup} title="Featured Products" layout="grid-5" rows={2} />
+            <BlockTabbedProductsCarousel status={productStatus} products={products} changeGroup={changeGroup}
+                                         title="Featured Products" layout="grid-5" rows={2}/>
 
             <BlockBanner/>
 
@@ -55,7 +56,7 @@ function HomePageTwo(props) {
             {/*    products={products.items.slice(1, 7)}*/}
             {/*/>*/}
 
-            <BlockCategories title="Popular Categories" layout="compact" categories={categories}/>
+            {/*<BlockCategories title="Popular Categories" layout="compact" categories={categories}/>*/}
 
             {/*<BlockTabbedProductsCarousel title="New Arrivals" layout="grid-5" />*/}
 
@@ -63,19 +64,20 @@ function HomePageTwo(props) {
 
             {/*<BlockBrands />*/}
 
-            <BlockProductColumns columns={columns}/>
+            {/*<BlockProductColumns columns={columns}/>*/}
         </React.Fragment>
     );
 }
+
 const mapStateToProps = (state) => ({
-    products: state.products
+    products: getVisibleProducts(state.products),
+    productStatus: getStatus(state.products)
 });
 
-const mapDispatchToProps = (dispatch)=> {
+const mapDispatchToProps = (dispatch) => {
     return {
         changeGroup: (id) => dispatch(fetchProducts(id))
     }
-
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomePageTwo);

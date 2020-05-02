@@ -167,7 +167,7 @@ export default class BlockProductsCarousel extends Component {
         const columns = [];
         const { rows } = this.props;
         let { products } = this.props;
-        let xs = products.items.slice();
+        let xs = products.slice();
         if (rows > 0) {
 
             while (xs.length > 0) {
@@ -185,11 +185,11 @@ export default class BlockProductsCarousel extends Component {
             withSidebar,
             onGroupClick,
             groups,
-            products,
+            status
         } = this.props;
 
         const blockClasses = classNames('block block-products-carousel', {
-            'block-products-carousel--loading': products.loading,
+            'block-products-carousel--loading': status.loading,
         });
         const containerClasses = classNames({
             container: !withSidebar,
@@ -241,10 +241,9 @@ BlockProductsCarousel.propTypes = {
     title: PropTypes.string.isRequired,
     layout: PropTypes.oneOf(['grid-4', 'grid-4-sm', 'grid-5', 'horizontal']),
     rows: PropTypes.number,
-    products: PropTypes.object,
     groups: PropTypes.array,
     withSidebar: PropTypes.bool,
-    loading: PropTypes.bool,
+    status: PropTypes.object,
     onGroupClick: PropTypes.func,
 };
 
@@ -253,6 +252,5 @@ BlockProductsCarousel.defaultProps = {
     rows: 1,
     groups: [],
     withSidebar: false,
-    loading: false,
     onGroupClick: undefined,
 };

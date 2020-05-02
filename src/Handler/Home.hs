@@ -7,12 +7,8 @@
 module Handler.Home where
 
 import AppType
-import Import
+import Import (Handler, Html, getYesod, appStaticDir, ($), (</>), sendFile, typeHtml)
 
--- import           Yesod.Form.Bootstrap3          ( BootstrapFormLayout(..)
---                                                 , renderBootstrap3
---                                                 )
--- import           Text.Julius                    ( RawJS(..) )
 -- This is a handler function for the GET request method on the HomeR
 -- resource pattern. All of your resource patterns are defined in
 -- config/routes
