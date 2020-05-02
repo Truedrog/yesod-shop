@@ -92,6 +92,7 @@ library:
     then:
       ghc-options:
       - -Wall
+      - -fwarn-incomplete-patterns
       - -fwarn-tabs
       - -O0
       - -Wincomplete-record-updates
@@ -102,6 +103,7 @@ library:
     else:
       ghc-options:
       - -Wall
+      - -fwarn-incomplete-patterns
       - -fwarn-tabs
       - -O2
       - -Wincomplete-record-updates

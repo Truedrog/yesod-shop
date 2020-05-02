@@ -46,7 +46,7 @@ class Root extends Component {
         if (direction !== null) {
             changeLocale(direction === 'rtl' ? 'ar' : 'en');
         }
-        this.props.fetchProducts()
+        this.props.fetchProducts();
     }
 
     render() {
@@ -89,12 +89,13 @@ Root.propTypes = {
 
 const mapStateToProps = (state) => ({
     locale: state.locale,
-    products: state.products
+    products: state.products,
+    categories: state.categories
 });
 
 const mapDispatchToProps = {
     localeChange,
-    fetchProducts
+    fetchProducts,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Root);

@@ -2,6 +2,8 @@
 import React, {useEffect, useState} from 'react';
 // third-party
 import {Helmet} from 'react-helmet-async';
+import {connect} from "react-redux";
+
 // blocks
 import BlockBanner from '../blocks/BlockBanner';
 import BlockCategories from '../blocks/BlockCategories';
@@ -12,11 +14,10 @@ import BlockTabbedProductsCarousel from '../blocks/BlockTabbedProductsCarousel';
 // data stubs
 import categories from '../../data/shopBlockCategories';
 import theme from '../../data/theme';
-import {connect} from "react-redux";
-
+import {fetchProducts} from "../../store/product";
 
 function HomePageTwo(props) {
-    const {products} = props;
+    const {products, changeGroup} = props;
 
     const columns = [
         {
@@ -33,11 +34,6 @@ function HomePageTwo(props) {
         },
     ];
 
-    if(products.loading) {
-        return <div>Loading...</div>
-    }
-
-    console.log(products)
     return (
         <React.Fragment>
             <Helmet>
@@ -48,16 +44,16 @@ function HomePageTwo(props) {
 
             {/*<BlockFeatures layout="boxed" />*/}
 
-            <BlockTabbedProductsCarousel products={products} title="Featured Products" layout="grid-5" rows={2} />
+            <BlockTabbedProductsCarousel products={products} changeGroup={changeGroup} title="Featured Products" layout="grid-5" rows={2} />
 
             <BlockBanner/>
 
-            <BlockProducts
-                title="Bestsellers"
-                layout="large-last"
-                featuredProduct={products.items[0]}
-                products={products.items.slice(1, 7)}
-            />
+            {/*<BlockProducts*/}
+            {/*    title="Bestsellers"*/}
+            {/*    layout="large-last"*/}
+            {/*    featuredProduct={products.items[0]}*/}
+            {/*    products={products.items.slice(1, 7)}*/}
+            {/*/>*/}
 
             <BlockCategories title="Popular Categories" layout="compact" categories={categories}/>
 
@@ -75,7 +71,11 @@ const mapStateToProps = (state) => ({
     products: state.products
 });
 
-const mapDispatchToProps = {
+const mapDispatchToProps = (dispatch)=> {
+    return {
+        changeGroup: (id) => dispatch(fetchProducts(id))
+    }
+
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomePageTwo);

@@ -80,7 +80,7 @@ function ProductCard(props) {
         features = (
             <ul className="product-card__features-list">
                 {product.features.map((feature, index) => (
-                    <li key={index}>{`${feature.name}: ${feature.value}`}</li>
+                    <li key={index}>{`${feature.title}: ${feature.value}`}</li>
                 ))}
             </ul>
         );
@@ -106,11 +106,11 @@ function ProductCard(props) {
             {image}
             <div className="product-card__info">
                 <div className="product-card__name">
-                    <Link to={`/shop/product/${product.id}`}>{product.name}</Link>
+                    <Link to={`/shop/product/${product.id}`}>{product.title}</Link>
                 </div>
                 <div className="product-card__rating">
                     <Rating value={product.rating} />
-                    <div className=" product-card__rating-legend">{`${product.reviews} Reviews`}</div>
+                    {/*<div className=" product-card__rating-legend">{`${product.reviews} Reviews`}</div>*/}
                 </div>
                 {features}
             </div>

@@ -274,7 +274,7 @@ class StroykaSlickBase extends Component {
                 onMouseDown={this.onMousedown}
                 ref={this.setRef}
             >
-                <Slick {...otherProps} rtl={direction === 'rtl'} beforeChange={this.beforeChange} ref={this.setSlickRef}>
+                <Slick {...otherProps} rtl={direction === 'rtl'} beforeChange={this.beforeChange} ref={this.setSlickRef} infinite={false}>
                     {reversedChildren}
                 </Slick>
             </div>

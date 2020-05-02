@@ -1,9 +1,10 @@
 {-# LANGUAGE TypeApplications #-}
 
 module Handler.Product where
+
 import Database.Esqueleto hiding (Value, from, on)
 import Database.Esqueleto.Experimental
-import Import hiding ((==.), isNothing, on, product)
+import Import hiding ((==.), isNothing, on, product, (||.))
 
 getProductR :: ProductId -> Handler Value
 getProductR productId = do
@@ -26,14 +27,23 @@ getProductR productId = do
 
 getProductsByCatR :: CategoryId -> Handler Value
 getProductsByCatR categoryId = do
-  products <- runDB $ select $ do
-    product <- from $ Table @Product
-    where_ (product ^. ProductCategory ==. val categoryId)
-    pure product
+  products <- runDB $ selectProductsByCat $ Just categoryId
   pure $ object ["status" .= ("ok" :: Text), "result" .= products]
+
+selectProductsByCat :: Maybe (Key Category) -> DB [Entity Product]
+selectProductsByCat categoryId =
+  select $ do
+    (product :& cat :& root) <-
+      from $
+        Table @Product
+          `InnerJoin` Table @Category
+          `on` (\(product :& sub) -> sub ^. CategoryId ==. product ^. ProductCategory)
+          `LeftOuterJoin` Table @Category
+          `on` (\(_ :& sub :& root) -> root ?. CategoryId ==. sub ^. CategoryParentId)
+    where_ (just (cat ^. CategoryId) ==. val categoryId ||. root ?. CategoryId ==. val categoryId)
+    pure product
 
 getProductsR :: Handler Value
 getProductsR = do
   products <- runDB $ select $ from $ Table @Product
   pure $ object ["status" .= ("ok" :: Text), "result" .= products]
-

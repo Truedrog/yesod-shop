@@ -74,7 +74,7 @@ instance Yesod App where
       <$> defaultClientSessionBackend
         120 -- timeout in minutes
         "config/client_session_key.aes"
-  yesodMiddleware :: ToTypedContent res => Handler res -> Handler res
+  yesodMiddleware :: Handler res -> Handler res
   yesodMiddleware = defaultYesodMiddleware
   authRoute :: App -> Maybe (Route App)
   authRoute _ = Just $ AuthR LoginR
@@ -92,6 +92,7 @@ instance Yesod App where
   isAuthorized CatsR _ = pure Authorized
   isAuthorized (ProductR _) _ = pure Authorized
   isAuthorized ProductsR _ = pure Authorized
+  isAuthorized (ProductsByCatR _) _ = pure Authorized
   isAuthorized (StaticR _) _ = pure Authorized
 
   -- What messages should be logged. The following includes all messages when

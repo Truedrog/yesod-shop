@@ -162,17 +162,16 @@ export default class BlockProductsCarousel extends Component {
         this.slickRef = ref;
     };
 
+
     productsColumns() {
         const columns = [];
         const { rows } = this.props;
         let { products } = this.props;
-
+        let xs = products.items.slice();
         if (rows > 0) {
-            products = products.slice();
-            console.log(this.props)
 
-            while (products.length > 0) {
-                columns.push(products.splice(0, rows));
+            while (xs.length > 0) {
+                columns.push(xs.splice(0, rows));
             }
         }
 
@@ -186,11 +185,11 @@ export default class BlockProductsCarousel extends Component {
             withSidebar,
             onGroupClick,
             groups,
-            loading,
+            products,
         } = this.props;
 
         const blockClasses = classNames('block block-products-carousel', {
-            'block-products-carousel--loading': loading,
+            'block-products-carousel--loading': products.loading,
         });
         const containerClasses = classNames({
             container: !withSidebar,
@@ -242,7 +241,7 @@ BlockProductsCarousel.propTypes = {
     title: PropTypes.string.isRequired,
     layout: PropTypes.oneOf(['grid-4', 'grid-4-sm', 'grid-5', 'horizontal']),
     rows: PropTypes.number,
-    products: PropTypes.array,
+    products: PropTypes.object,
     groups: PropTypes.array,
     withSidebar: PropTypes.bool,
     loading: PropTypes.bool,
@@ -252,7 +251,6 @@ BlockProductsCarousel.propTypes = {
 BlockProductsCarousel.defaultProps = {
     layout: 'grid-4',
     rows: 1,
-    products: [],
     groups: [],
     withSidebar: false,
     loading: false,
