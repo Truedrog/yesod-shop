@@ -7,11 +7,13 @@ data ProductSpecType
   deriving (Show, Eq, Generic)
 
 instance FromJSON ProductSpecType
+
 instance ToJSON ProductSpecType
 
 data ProductFeature
- = ProductFeature {featureName :: Text, value :: Text}
- deriving (Show, Eq, Generic)
+  = ProductFeature {featureName :: Text, value :: Text}
+  deriving (Show, Eq, Generic)
 
 instance FromJSON ProductFeature
+
 instance ToJSON ProductFeature

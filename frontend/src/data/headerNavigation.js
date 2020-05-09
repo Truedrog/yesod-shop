@@ -23,7 +23,7 @@ export default [
                         links: [
                             {
                                 title: 'Power Tools',
-                                url: '',
+                                url: 'shop/category/1',
                                 links: [
                                     { title: 'Engravers', url: '' },
                                     { title: 'Wrenches', url: '' },

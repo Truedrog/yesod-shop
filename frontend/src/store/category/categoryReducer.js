@@ -30,7 +30,7 @@ export default function categoryReducer(
             return {
                 ...state,
                 loading: false,
-                items: action.payload.products
+                items: action.payload.categories
             };
 
         case FETCH_CATEGORIES_FAILURE:

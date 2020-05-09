@@ -18,19 +18,8 @@ import navLinks from '../../data/headerNavigation';
 
 
 function NavLinks(props) {
-    const [navs, setNavs] = useState([]);
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const res = await fetch('/api/cats');
-                const response = await res.json();
-                setNavs(response);
-            } catch (e) {
-                console.log(e);
-            }
-        };
-        fetchData();
-    }, []);
+    const {categories} = props;
+
     const handleMouseEnter = (event) => {
         const { locale } = props;
         const { direction } = languages[locale];
@@ -121,6 +110,7 @@ NavLinks.propTypes = {
 
 const mapStateToProps = (state) => ({
     locale: state.locale,
+    categories: state.categories
 });
 
 export default connect(mapStateToProps)(NavLinks);

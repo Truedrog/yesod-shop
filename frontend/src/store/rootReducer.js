@@ -10,6 +10,7 @@ import quickviewReducer from './quickview';
 import sidebarReducer from './sidebar';
 import wishlistReducer from './wishlist';
 import products from './product';
+import categoryReducer from "./category";
 
 
 export default combineReducers({
@@ -21,5 +22,6 @@ export default combineReducers({
     quickview: quickviewReducer,
     sidebar: sidebarReducer,
     wishlist: wishlistReducer,
-    products: products
+    products: products,
+    categories: categoryReducer
 });

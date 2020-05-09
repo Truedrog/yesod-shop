@@ -40,7 +40,6 @@ class Product extends Component {
         } = this.props;
         const {quantity} = this.state;
         let prices;
-        console.log(product)
 
         if (product.compareAtPrice) {
             prices = (

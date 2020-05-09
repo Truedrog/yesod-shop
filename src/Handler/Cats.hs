@@ -10,40 +10,45 @@ import Import hiding ((==.), isNothing, on)
 data Link
   = Link
       { title :: Maybe Text,
+        url :: Maybe Text,
         links :: Maybe [Link]
       }
   deriving (Show, Eq, Ord, Generic)
 
 instance Monoid Link where
-  mempty = Link {title = Just "", links = Nothing}
+  mempty = Link {title = Just "", url = Nothing, links = Nothing}
 
 instance Semigroup Link where
-  Link _ links <> Link title links' = Link title (links <> links')
+  Link _ _ links <> Link title url links' = Link title url (links <> links')
 
 instance FromJSON Link
 
 instance ToJSON Link where
-  toJSON (Link title links) =
+  toJSON (Link title url links) =
     object $
       stripNulls
         [ "title" .= title,
+          "url" .= url,
           "links" .= links
         ]
 
 getCatsR :: Handler Value
 getCatsR = do
   cats <- runDB selectCats
-  returnJson $ M.elems $
-    M.fromListWith
-      (<>)
-      [ ( fromSqlKey catId,
-          Link {title = Just title, links = Just [Link {title = subTitle, links = Nothing}]}
-        )
-        | (cat, subcat) <- cats,
-          let catId = entityKey cat,
-          let title = categoryTitle . entityVal $ cat,
-          let subTitle = categoryTitle . entityVal <$> subcat
-      ]
+  let ks = M.elems $
+                 M.fromListWith
+                   (<>)
+                   [ ( catId,
+                       Link {title = Just title, url = url, links = Just [Link {title = subTitle, url = subUrl, links = Nothing}]}
+                     )
+                     | (cat, subcat) <- cats,
+                       let catId = fromSqlKey . entityKey $ cat,
+                       let title = categoryTitle . entityVal $ cat,
+                       let url = categoryUrl . entityVal $ cat,
+                       let subTitle = categoryTitle . entityVal <$> subcat,
+                       let subUrl = (categoryUrl . entityVal) =<< subcat
+                   ]
+  pure $ object ["status" .= ("ok" :: Text), "result" .= ks]
 
 selectCats :: DB [(Entity Category, Maybe (Entity Category))]
 selectCats =

@@ -81,8 +81,8 @@ function ShopPageProduct(props) {
                             <ProductTabs product={product} withSidebar/>
                         </div>
 
-                        <BlockProductsCarousel title="Related Products" layout="grid-4-sm" products={products}
-                                               withSidebar/>
+                        {/*<BlockProductsCarousel title="Related Products" layout="grid-4-sm" products={products}*/}
+                        {/*                       withSidebar/>*/}
                     </div>
                     {sidebarPosition === 'end' && sidebar}
                 </div>
@@ -98,7 +98,7 @@ function ShopPageProduct(props) {
                     </div>
                 </div>
 
-                <BlockProductsCarousel title="Related Products" layout="grid-5" products={products}/>
+                {/*<BlockProductsCarousel title="Related Products" layout="grid-5" products={products}/>*/}
             </React.Fragment>
         );
     }

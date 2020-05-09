@@ -29,14 +29,14 @@ class BlockSlideShow extends Component {
 
     slides = [
         {
-            title: 'Big choice of<br>Plumbing products',
-            text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.<br>Etiam pharetra laoreet dui quis molestie.',
+            title: '',
+            text: '',
             image_classic: {
-                ltr: 'images/slides/slide-1-ltr.jpg',
+                ltr: 'images/slides/img1200.jpg',
                 rtl: 'images/slides/slide-1-rtl.jpg',
             },
             image_full: {
-                ltr: 'images/slides/slide-1-full-ltr.jpg',
+                ltr: 'images/slides/img1200.jpg',
                 rtl: 'images/slides/slide-1-full-rtl.jpg',
             },
             image_mobile: {
@@ -46,13 +46,13 @@ class BlockSlideShow extends Component {
         },
         {
             title: 'Screwdrivers<br>Professional Tools',
-            text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.<br>Etiam pharetra laoreet dui quis molestie.',
+            text: '',
             image_classic: {
-                ltr: 'images/slides/slide-2-ltr.jpg',
+                ltr: 'images/slides/img1.jpg',
                 rtl: 'images/slides/slide-2-rtl.jpg',
             },
             image_full: {
-                ltr: 'images/slides/slide-2-full-ltr.jpg',
+                ltr: 'images/slides/img1.jpg',
                 rtl: 'images/slides/slide-2-full-rtl.jpg',
             },
             image_mobile: {
@@ -60,22 +60,7 @@ class BlockSlideShow extends Component {
                 rtl: 'images/slides/slide-2-mobile.jpg',
             },
         },
-        {
-            title: 'One more<br>Unique header',
-            text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.<br>Etiam pharetra laoreet dui quis molestie.',
-            image_classic: {
-                ltr: 'images/slides/slide-3-ltr.jpg',
-                rtl: 'images/slides/slide-3-rtl.jpg',
-            },
-            image_full: {
-                ltr: 'images/slides/slide-3-full-ltr.jpg',
-                rtl: 'images/slides/slide-3-full-rtl.jpg',
-            },
-            image_mobile: {
-                ltr: 'images/slides/slide-3-mobile.jpg',
-                rtl: 'images/slides/slide-3-mobile.jpg',
-            },
-        },
+
     ];
 
     componentDidMount() {

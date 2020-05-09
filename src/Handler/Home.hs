@@ -1,13 +1,13 @@
-{-# LANGUAGE NoImplicitPrelude #-}
+{-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE TemplateHaskell #-}
-{-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 
 module Handler.Home where
 
 import AppType
-import Import (Handler, Html, getYesod, appStaticDir, ($), (</>), sendFile, typeHtml)
+import Import (($), (</>), Handler, Html, appStaticDir, getYesod, sendFile, typeHtml)
 
 -- This is a handler function for the GET request method on the HomeR
 -- resource pattern. All of your resource patterns are defined in

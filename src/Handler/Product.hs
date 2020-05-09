@@ -27,7 +27,7 @@ getProductR productId = do
 
 getProductsByCatR :: CategoryId -> Handler Value
 getProductsByCatR categoryId = do
-  products <- runDB $ selectProductsByCat $ categoryId
+  products <- runDB $ selectProductsByCat categoryId
   pure $ object ["status" .= ("ok" :: Text), "result" .= products]
 
 selectProductsByCat :: CategoryId -> DB [Entity Product]
@@ -40,9 +40,9 @@ selectProductsByCat categoryId =
           `on` (\(product :& sub) -> sub ^. CategoryId ==. product ^. ProductCategory)
           `LeftOuterJoin` Table @Category
           `on` (\(_ :& sub :& root) -> root ?. CategoryId ==. sub ^. CategoryParentId)
-    where_ 
-      $ cat ^. CategoryId ==. val categoryId
-      ||. root ?. CategoryId ==. val (Just categoryId)
+    where_ $
+      cat ^. CategoryId ==. val categoryId
+        ||. root ?. CategoryId ==. val (Just categoryId)
     pure product
 
 getProductsR :: Handler Value

@@ -17,12 +17,13 @@ import { ScrollContext } from 'react-router-scroll-4';
 // application
 import languages from '../i18n';
 import { localeChange } from '../store/locale';
-import {fetchProducts} from "../store/product";
-
+import { fetchProducts } from "../store/product";
+import { fetchCategories } from "../store/category";
 // pages
 import Layout from './Layout';
 // import HomePageOne from './home/HomePageOne';
 import HomePageTwo from './home/HomePageTwo';
+import {getVisibleProducts} from "../store/product/productReducer";
 
 
 class Root extends Component {
@@ -40,7 +41,7 @@ class Root extends Component {
         }, 500);
 
         // this is for demo only, you can delete it
-        const { localeChange: changeLocale } = this.props;
+        const {localeChange: changeLocale} = this.props;
         const direction = new URLSearchParams(window.location.search).get('dir');
 
         if (direction !== null) {
@@ -50,20 +51,21 @@ class Root extends Component {
     }
 
     render() {
-        const { locale, products } = this.props;
-        const { messages, direction } = languages[locale];
+        const {locale, products, categories} = this.props;
+        const {messages, direction} = languages[locale];
 
         return (
             <IntlProvider locale={locale} messages={messages}>
                 <BrowserRouter>
                     <HelmetProvider>
-                        <Helmet htmlAttributes={{ lang: locale, dir: direction }} />
+                        <Helmet htmlAttributes={{lang: locale, dir: direction}}/>
                         <ScrollContext>
                             <Switch>
                                 <Route
                                     path="/"
                                     render={(props) => (
-                                        <Layout {...props} products={products} headerLayout="compact" homeComponent={HomePageTwo} />
+                                        <Layout {...props} products={products} categories={categories}
+                                                headerLayout="compact" homeComponent={HomePageTwo}/>
                                     )}
                                 />
                                 {/*<Route*/}
@@ -72,7 +74,7 @@ class Root extends Component {
                                 {/*        <Layout {...props} headerLayout="default" homeComponent={HomePageOne} />*/}
                                 {/*    )}*/}
                                 {/*/>*/}
-                                <Redirect to="/" />
+                                <Redirect to="/"/>
                             </Switch>
                         </ScrollContext>
                     </HelmetProvider>
@@ -89,7 +91,6 @@ Root.propTypes = {
 
 const mapStateToProps = (state) => ({
     locale: state.locale,
-    products: state.products,
     categories: state.categories
 });
 

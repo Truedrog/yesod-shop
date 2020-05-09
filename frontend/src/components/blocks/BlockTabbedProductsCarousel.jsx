@@ -24,7 +24,7 @@ export default class BlockTabbedProductsCarousel extends Component {
         };
     }
 
-    handleChangeGroup = (newCurrentGroup) => {
+    handleChangeGroup = async (newCurrentGroup) => {
 
         const {changeGroup} = this.props;
 
@@ -42,7 +42,7 @@ export default class BlockTabbedProductsCarousel extends Component {
                 )),
             }
         ));
-        changeGroup(newCurrentGroup.id)
+        await changeGroup(newCurrentGroup.id)
     };
 
     render() {

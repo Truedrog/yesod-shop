@@ -8,7 +8,7 @@ export function fetchProducts(category="") {
             .then(response => response.json())
             .then(json => {
                 dispatch(fetchProductsSuccess(json.result));
-                return json.products;
+                return json.result;
             })
             .catch(error =>
                 dispatch(fetchProductsFailure(error))

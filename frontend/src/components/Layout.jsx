@@ -78,62 +78,62 @@ function Layout(props) {
                         <Redirect exact from="/shop" to="/shop/category-grid-3-columns-sidebar" />
                         <Route
                             exact
-                            path="/shop/category-grid-3-columns-sidebar"
+                            path="/shop/category/:categoryId"
                             render={(props) => (
                                 <ShopPageCategory {...props} columns={3} viewMode="grid" sidebarPosition="start" />
                             )}
                         />
-                        <Route
-                            exact
-                            path="/shop/category-grid-4-columns-full"
-                            render={(props) => (
-                                <ShopPageCategory {...props} columns={4} viewMode="grid" />
-                            )}
-                        />
-                        <Route
-                            exact
-                            path="/shop/category-grid-5-columns-full"
-                            render={(props) => (
-                                <ShopPageCategory {...props} columns={5} viewMode="grid" />
-                            )}
-                        />
-                        <Route
-                            exact
-                            path="/shop/category-list"
-                            render={(props) => (
-                                <ShopPageCategory {...props} columns={3} viewMode="list" sidebarPosition="start" />
-                            )}
-                        />
-                        <Route
-                            exact
-                            path="/shop/category-right-sidebar"
-                            render={(props) => (
-                                <ShopPageCategory {...props} columns={3} viewMode="grid" sidebarPosition="end" />
-                            )}
-                        />
+                        {/*<Route*/}
+                        {/*    exact*/}
+                        {/*    path="/shop/category-grid-4-columns-full"*/}
+                        {/*    render={(props) => (*/}
+                        {/*        <ShopPageCategory {...props} columns={4} viewMode="grid" />*/}
+                        {/*    )}*/}
+                        {/*/>*/}
+                        {/*<Route*/}
+                        {/*    exact*/}
+                        {/*    path="/shop/category-grid-5-columns-full"*/}
+                        {/*    render={(props) => (*/}
+                        {/*        <ShopPageCategory {...props} columns={5} viewMode="grid" />*/}
+                        {/*    )}*/}
+                        {/*/>*/}
+                        {/*<Route*/}
+                        {/*    exact*/}
+                        {/*    path="/shop/category-list"*/}
+                        {/*    render={(props) => (*/}
+                        {/*        <ShopPageCategory {...props} columns={3} viewMode="list" sidebarPosition="start" />*/}
+                        {/*    )}*/}
+                        {/*/>*/}
+                        {/*<Route*/}
+                        {/*    exact*/}
+                        {/*    path="/shop/category-right-sidebar"*/}
+                        {/*    render={(props) => (*/}
+                        {/*        <ShopPageCategory {...props} columns={3} viewMode="grid" sidebarPosition="end" />*/}
+                        {/*    )}*/}
+                        {/*/>*/}
 
                         <Route exact path="/shop/product/:productId" component={ShopPageProduct} />
-                        <Route
-                            exact
-                            path="/shop/product-standard"
-                            render={(props) => (
-                                <ShopPageProduct {...props} layout="standard" />
-                            )}
-                        />
-                        <Route
-                            exact
-                            path="/shop/product-columnar"
-                            render={(props) => (
-                                <ShopPageProduct {...props} layout="columnar" />
-                            )}
-                        />
-                        <Route
-                            exact
-                            path="/shop/product-sidebar"
-                            render={(props) => (
-                                <ShopPageProduct {...props} layout="sidebar" />
-                            )}
-                        />
+                        {/*<Route*/}
+                        {/*    exact*/}
+                        {/*    path="/shop/product-standard"*/}
+                        {/*    render={(props) => (*/}
+                        {/*        <ShopPageProduct {...props} layout="standard" />*/}
+                        {/*    )}*/}
+                        {/*/>*/}
+                        {/*<Route*/}
+                        {/*    exact*/}
+                        {/*    path="/shop/product-columnar"*/}
+                        {/*    render={(props) => (*/}
+                        {/*        <ShopPageProduct {...props} layout="columnar" />*/}
+                        {/*    )}*/}
+                        {/*/>*/}
+                        {/*<Route*/}
+                        {/*    exact*/}
+                        {/*    path="/shop/product-sidebar"*/}
+                        {/*    render={(props) => (*/}
+                        {/*        <ShopPageProduct {...props} layout="sidebar" />*/}
+                        {/*    )}*/}
+                        {/*/>*/}
 
                         <Route exact path="/shop/cart" component={PageCart} />
                         <Route exact path="/shop/checkout" component={PageCheckout} />
