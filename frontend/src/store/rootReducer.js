@@ -22,6 +22,8 @@ export default combineReducers({
     quickview: quickviewReducer,
     sidebar: sidebarReducer,
     wishlist: wishlistReducer,
-    products: products,
-    categories: categoryReducer
+    products: products(),
+    productsBlockA: products("A"),
+    productsBlockB: products("B"),
+    categories: categoryReducer,
 });

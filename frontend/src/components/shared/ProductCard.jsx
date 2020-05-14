@@ -120,61 +120,61 @@ function ProductCard(props) {
                     <span className="text-success">In Stock</span>
                 </div>
                 {price}
-                <div className="product-card__buttons">
-                    <AsyncAction
-                        action={() => cartAddItem(product)}
-                        render={({ run, loading }) => (
-                            <React.Fragment>
-                                <button
-                                    type="button"
-                                    onClick={run}
-                                    className={classNames('btn btn-primary product-card__addtocart', {
-                                        'btn-loading': loading,
-                                    })}
-                                >
-                                    Add To Cart
-                                </button>
-                                <button
-                                    type="button"
-                                    onClick={run}
-                                    className={classNames('btn btn-secondary product-card__addtocart product-card__addtocart--list', {
-                                        'btn-loading': loading,
-                                    })}
-                                >
-                                    Add To Cart
-                                </button>
-                            </React.Fragment>
-                        )}
-                    />
-                    <AsyncAction
-                        action={() => wishlistAddItem(product)}
-                        render={({ run, loading }) => (
-                            <button
-                                type="button"
-                                onClick={run}
-                                className={classNames('btn btn-light btn-svg-icon btn-svg-icon--fake-svg product-card__wishlist', {
-                                    'btn-loading': loading,
-                                })}
-                            >
-                                <Wishlist16Svg />
-                            </button>
-                        )}
-                    />
-                    <AsyncAction
-                        action={() => compareAddItem(product)}
-                        render={({ run, loading }) => (
-                            <button
-                                type="button"
-                                onClick={run}
-                                className={classNames('btn btn-light btn-svg-icon btn-svg-icon--fake-svg product-card__compare', {
-                                    'btn-loading': loading,
-                                })}
-                            >
-                                <Compare16Svg />
-                            </button>
-                        )}
-                    />
-                </div>
+                {/*<div className="product-card__buttons">*/}
+                {/*    <AsyncAction*/}
+                {/*        action={() => cartAddItem(product)}*/}
+                {/*        render={({ run, loading }) => (*/}
+                {/*            <React.Fragment>*/}
+                {/*                <button*/}
+                {/*                    type="button"*/}
+                {/*                    onClick={run}*/}
+                {/*                    className={classNames('btn btn-primary product-card__addtocart', {*/}
+                {/*                        'btn-loading': loading,*/}
+                {/*                    })}*/}
+                {/*                >*/}
+                {/*                    Add To Cart*/}
+                {/*                </button>*/}
+                {/*                <button*/}
+                {/*                    type="button"*/}
+                {/*                    onClick={run}*/}
+                {/*                    className={classNames('btn btn-secondary product-card__addtocart product-card__addtocart--list', {*/}
+                {/*                        'btn-loading': loading,*/}
+                {/*                    })}*/}
+                {/*                >*/}
+                {/*                    Add To Cart*/}
+                {/*                </button>*/}
+                {/*            </React.Fragment>*/}
+                {/*        )}*/}
+                {/*    />*/}
+                {/*    <AsyncAction*/}
+                {/*        action={() => wishlistAddItem(product)}*/}
+                {/*        render={({ run, loading }) => (*/}
+                {/*            <button*/}
+                {/*                type="button"*/}
+                {/*                onClick={run}*/}
+                {/*                className={classNames('btn btn-light btn-svg-icon btn-svg-icon--fake-svg product-card__wishlist', {*/}
+                {/*                    'btn-loading': loading,*/}
+                {/*                })}*/}
+                {/*            >*/}
+                {/*                <Wishlist16Svg />*/}
+                {/*            </button>*/}
+                {/*        )}*/}
+                {/*    />*/}
+                {/*    <AsyncAction*/}
+                {/*        action={() => compareAddItem(product)}*/}
+                {/*        render={({ run, loading }) => (*/}
+                {/*            <button*/}
+                {/*                type="button"*/}
+                {/*                onClick={run}*/}
+                {/*                className={classNames('btn btn-light btn-svg-icon btn-svg-icon--fake-svg product-card__compare', {*/}
+                {/*                    'btn-loading': loading,*/}
+                {/*                })}*/}
+                {/*            >*/}
+                {/*                <Compare16Svg />*/}
+                {/*            </button>*/}
+                {/*        )}*/}
+                {/*    />*/}
+                {/*</div>*/}
             </div>
         </div>
     );

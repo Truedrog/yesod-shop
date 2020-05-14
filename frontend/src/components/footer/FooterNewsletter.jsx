@@ -9,27 +9,22 @@ export default function FooterNewsletter() {
     const socialLinks = [
         {
             key: 'facebook',
-            url: theme.author.profile_url,
             iconClass: 'fab fa-facebook-f',
         },
         {
             key: 'twitter',
-            url: theme.author.profile_url,
             iconClass: 'fab fa-twitter',
         },
         {
             key: 'youtube',
-            url: theme.author.profile_url,
             iconClass: 'fab fa-youtube',
         },
         {
             key: 'instagram',
-            url: theme.author.profile_url,
             iconClass: 'fab fa-instagram',
         },
         {
             key: 'rss',
-            url: theme.author.profile_url,
             iconClass: 'fas fa-rss',
         },
     ];

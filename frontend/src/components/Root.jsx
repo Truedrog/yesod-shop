@@ -17,13 +17,11 @@ import { ScrollContext } from 'react-router-scroll-4';
 // application
 import languages from '../i18n';
 import { localeChange } from '../store/locale';
-import { fetchProducts } from "../store/product";
 import { fetchCategories } from "../store/category";
 // pages
 import Layout from './Layout';
-// import HomePageOne from './home/HomePageOne';
 import HomePageTwo from './home/HomePageTwo';
-import {getVisibleProducts} from "../store/product/productReducer";
+import {fetchProducts} from "../store/product/productActions";
 
 
 class Root extends Component {
@@ -96,7 +94,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = {
     localeChange,
-    fetchProducts,
+    fetchProducts
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Root);

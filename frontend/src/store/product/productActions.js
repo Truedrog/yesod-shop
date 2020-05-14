@@ -1,31 +1,41 @@
-import {FETCH_PRODUCTS_BEGIN, FETCH_PRODUCTS_SUCCESS, FETCH_PRODUCTS_FAILURE} from "./productActionTypes";
+import {createAction} from 'redux-act';
 
-export function fetchProducts(category="") {
+export function fetchProducts(sliceName = "", category = "") {
     let str = category ? `/${category}` : "";
-    return dispatch => {
-        dispatch(fetchProductsBegin());
-        return fetch(`/api/products${str}`)
-            .then(response => response.json())
-            .then(json => {
-                dispatch(fetchProductsSuccess(json.result));
-                return json.result;
-            })
-            .catch(error =>
-                dispatch(fetchProductsFailure(error))
-            );
-    };
+
+    switch (sliceName) {
+        case "A":
+            return performFetch(str, beginA, successA, failureA);
+        case "B":
+            return performFetch(str, beginB, successB, failureB);
+        default:
+            return performFetch(str, begin, success, failure);
+    }
 }
 
-export const fetchProductsBegin = () => ({
-    type: FETCH_PRODUCTS_BEGIN
-});
+const performFetch = (str, begin, success, failure) => dispatch => {
+    dispatch(begin());
+    return fetch(`/api/products${str}`)
+        .then(response => response.json())
+        .then(json => {
+            dispatch(success(json.result));
+            return json.result;
+        })
+        .catch(error =>
+            dispatch(failure(error))
+        );
+};
 
-export const fetchProductsSuccess = products => ({
-    type: FETCH_PRODUCTS_SUCCESS,
-    payload: { products }
-});
+export const fetchProductsBegin = name => createAction(`FETCH_PRODUCTS_BEGIN_${name}`);
+export const fetchProductsSuccess = name => createAction(`FETCH_PRODUCTS_SUCCESS_${name}`);
+export const fetchProductsFailure = name => createAction(`FETCH_PRODUCTS_FAILURE_${name}`);
 
-export const fetchProductsFailure = error => ({
-    type: FETCH_PRODUCTS_FAILURE,
-    payload: { error }
-});
+export const begin = createAction(`FETCH_PRODUCTS_BEGIN`);
+export const success = createAction(`FETCH_PRODUCTS_SUCCESS`);
+export const failure = createAction(`FETCH_PRODUCTS_FAILURE`);
+export const beginA = fetchProductsBegin("A");
+export const successA = fetchProductsSuccess("A");
+export const failureA = fetchProductsFailure("A");
+export const beginB = fetchProductsBegin("B");
+export const successB = fetchProductsSuccess("B");
+export const failureB = fetchProductsFailure("B");
