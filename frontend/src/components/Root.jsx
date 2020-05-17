@@ -1,23 +1,15 @@
 // react
-import React, { Component } from 'react';
-
+import React, {Component} from 'react';
 // third-party
 import PropTypes from 'prop-types';
-import {
-    BrowserRouter,
-    Route,
-    Redirect,
-    Switch,
-} from 'react-router-dom';
-import { connect } from 'react-redux';
-import { Helmet, HelmetProvider } from 'react-helmet-async';
-import { IntlProvider } from 'react-intl';
-import { ScrollContext } from 'react-router-scroll-4';
-
+import {BrowserRouter, matchPath, Redirect, Route, Switch} from 'react-router-dom';
+import {connect} from 'react-redux';
+import {Helmet, HelmetProvider} from 'react-helmet-async';
+import {IntlProvider} from 'react-intl';
+import {ScrollContext} from 'react-router-scroll-4';
 // application
 import languages from '../i18n';
-import { localeChange } from '../store/locale';
-import { fetchCategories } from "../store/category";
+import {localeChange} from '../store/locale';
 // pages
 import Layout from './Layout';
 import HomePageTwo from './home/HomePageTwo';
@@ -45,7 +37,13 @@ class Root extends Component {
         if (direction !== null) {
             changeLocale(direction === 'rtl' ? 'ar' : 'en');
         }
-        this.props.fetchProducts();
+        const shopPath = matchPath(window.location.pathname, {
+            path: "/shop/category/:id",
+            exact: true,
+            strict: false
+        });
+        console.log(shopPath)
+        this.props.fetchProducts("", shopPath?.params?.id ?? "", shopPath?.params?.id ? {limit: 15} : {});
     }
 
     render() {
@@ -66,12 +64,6 @@ class Root extends Component {
                                                 headerLayout="compact" homeComponent={HomePageTwo}/>
                                     )}
                                 />
-                                {/*<Route*/}
-                                {/*    path="/"*/}
-                                {/*    render={(props) => (*/}
-                                {/*        <Layout {...props} headerLayout="default" homeComponent={HomePageOne} />*/}
-                                {/*    )}*/}
-                                {/*/>*/}
                                 <Redirect to="/"/>
                             </Switch>
                         </ScrollContext>
@@ -88,13 +80,11 @@ Root.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-    locale: state.locale,
-    categories: state.categories
+    locale: state.locale
 });
 
 const mapDispatchToProps = {
     localeChange,
     fetchProducts
 };
-
 export default connect(mapStateToProps, mapDispatchToProps)(Root);

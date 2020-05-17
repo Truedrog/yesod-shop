@@ -13,16 +13,19 @@ import ProductsView from './ProductsView';
 import { sidebarClose } from '../../store/sidebar';
 
 // data stubs
-import products from '../../data/shopProducts';
+// import products from '../../data/shopProducts';
 import theme from '../../data/theme';
-
+import {getStatus, getVisibleProducts} from "../../store/product/productReducer";
 
 function ShopPageCategory(props) {
     const {
         columns,
         viewMode,
         sidebarPosition,
+        products,
+        productsStatus,
     } = props;
+
     const breadcrumb = [
         { title: 'Home', url: '' },
         { title: 'Screwdrivers', url: '' },
@@ -43,12 +46,14 @@ function ShopPageCategory(props) {
                         offcanvas={offcanvas}
                     />
                 </div>
-                <CategorySidebar offcanvas={offcanvas} />
+                <CategorySidebar offcanvas={offcanvas} products={products} />
             </div>
         );
     } else {
         const sidebar = (
-            <div className="shop-layout__sidebar"><CategorySidebar offcanvas={offcanvas} /></div>
+            <div className="shop-layout__sidebar">
+                <CategorySidebar offcanvas={offcanvas} products={products} />
+            </div>
         );
 
         content = (
@@ -111,6 +116,8 @@ ShopPageCategory.defaultProps = {
 
 const mapStateToProps = (state) => ({
     sidebarState: state.sidebar,
+    products: getVisibleProducts(state.products),
+    productsStatus: getStatus(state.products),
 });
 
 const mapDispatchToProps = {

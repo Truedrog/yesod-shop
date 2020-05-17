@@ -1,21 +1,28 @@
 import {createAction} from 'redux-act';
 
-export function fetchProducts(sliceName = "", category = "") {
+export function fetchProducts(sliceName = "", category = "", options = {}) {
+
     let str = category ? `/${category}` : "";
 
+    let actions;
     switch (sliceName) {
         case "A":
-            return performFetch(str, beginA, successA, failureA);
+            actions = {beginA, successA, failureA}
+            return performFetch(str, actions, options);
         case "B":
-            return performFetch(str, beginB, successB, failureB);
+            actions = {beginB, successB, failureB}
+            return performFetch(str, actions, options);
         default:
-            return performFetch(str, begin, success, failure);
+            actions = {begin, success, failure}
+            return performFetch(str, actions, options);
     }
 }
 
-const performFetch = (str, begin, success, failure) => dispatch => {
+const performFetch = (str, actions, options) => dispatch => {
+    const {begin, success, failure} = actions;
+    const {limit} = options;
     dispatch(begin());
-    return fetch(`/api/products${str}`)
+    return fetch(`/api/products${str}${limit ? "?limit=" + limit : ""}`)
         .then(response => response.json())
         .then(json => {
             dispatch(success(json.result));

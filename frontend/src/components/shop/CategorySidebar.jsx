@@ -1,22 +1,18 @@
 // react
-import React, { useEffect, useRef } from 'react';
-
+import React, {useEffect, useRef} from 'react';
 // third-party
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-
+import {connect} from 'react-redux';
 // application
-import { Cross20Svg } from '../../svg';
-import { sidebarClose } from '../../store/sidebar';
-
+import {Cross20Svg} from '../../svg';
+import {sidebarClose} from '../../store/sidebar';
 // widgets
 import WidgetFilters from '../widgets/WidgetFilters';
 import WidgetProducts from '../widgets/WidgetProducts';
-
 // data stubs
 import filters from '../../data/shopFilters';
-import products from '../../data/shopProducts';
+import {fetchCategories} from "../../store/category";
 
 
 function CategorySidebar(props) {
@@ -24,8 +20,13 @@ function CategorySidebar(props) {
         sidebarClose,
         sidebarState,
         offcanvas,
+        categories,
+        fetchCategories,
+        products
     } = props;
-
+    if (categories.loading !== true && categories.items.length === 0) {
+        fetchCategories()
+    }
     const classes = classNames('block block-sidebar', {
         'block-sidebar--open': sidebarState.open,
         'block-sidebar--offcanvas--always': offcanvas === 'always',
@@ -97,20 +98,20 @@ function CategorySidebar(props) {
         <div className={classes}>
             {/* eslint-disable-next-line max-len */}
             {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions */}
-            <div className="block-sidebar__backdrop" ref={backdropRef} onClick={() => sidebarClose()} />
+            <div className="block-sidebar__backdrop" ref={backdropRef} onClick={() => sidebarClose()}/>
             <div className="block-sidebar__body" ref={bodyRef}>
                 <div className="block-sidebar__header">
                     <div className="block-sidebar__title">Filters</div>
                     <button className="block-sidebar__close" type="button" onClick={() => sidebarClose()}>
-                        <Cross20Svg />
+                        <Cross20Svg/>
                     </button>
                 </div>
                 <div className="block-sidebar__item">
-                    <WidgetFilters title="Filters" filters={filters} offcanvas={offcanvas} />
+                    <WidgetFilters title="Filters" filters={filters} offcanvas={offcanvas}/>
                 </div>
                 {offcanvas !== 'always' && (
                     <div className="block-sidebar__item d-none d-lg-block">
-                        <WidgetProducts title="Latest Products" products={products.slice(0, 5)} />
+                        <WidgetProducts title="Latest Products" products={products.slice(0, 5)}/>
                     </div>
                 )}
             </div>
@@ -131,10 +132,12 @@ CategorySidebar.defaultProps = {
 
 const mapStateToProps = (state) => ({
     sidebarState: state.sidebar,
+    categories: state.categories
 });
 
 const mapDispatchToProps = {
     sidebarClose,
+    fetchCategories
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(CategorySidebar);

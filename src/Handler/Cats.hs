@@ -35,19 +35,20 @@ instance ToJSON Link where
 getCatsR :: Handler Value
 getCatsR = do
   cats <- runDB selectCats
-  let ks = M.elems $
-                 M.fromListWith
-                   (<>)
-                   [ ( catId,
-                       Link {title = Just title, url = url, links = Just [Link {title = subTitle, url = subUrl, links = Nothing}]}
-                     )
-                     | (cat, subcat) <- cats,
-                       let catId = fromSqlKey . entityKey $ cat,
-                       let title = categoryTitle . entityVal $ cat,
-                       let url = categoryUrl . entityVal $ cat,
-                       let subTitle = categoryTitle . entityVal <$> subcat,
-                       let subUrl = (categoryUrl . entityVal) =<< subcat
-                   ]
+  let ks =
+        M.elems $
+          M.fromListWith
+            (<>)
+            [ ( catId,
+                Link {title = Just title, url = url, links = Just [Link {title = subTitle, url = subUrl, links = Nothing}]}
+              )
+              | (cat, subcat) <- cats,
+                let catId = fromSqlKey . entityKey $ cat
+                    title = categoryTitle . entityVal $ cat
+                    url = categoryUrl . entityVal $ cat
+                    subTitle = categoryTitle . entityVal <$> subcat
+                    subUrl = (categoryUrl . entityVal) =<< subcat
+            ]
   pure $ object ["status" .= ("ok" :: Text), "result" .= ks]
 
 selectCats :: DB [(Entity Category, Maybe (Entity Category))]

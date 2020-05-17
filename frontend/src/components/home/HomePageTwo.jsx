@@ -19,7 +19,6 @@ function HomePageTwo(props) {
     let statusA = products.size > 0 ? productsStatus : productsBlockAStatus
     let statusB = products.size > 0 ? productsStatus : productsBlockBStatus
 
-    console.log(props)
     const columns = [
         {
             title: 'Top Rated Products',

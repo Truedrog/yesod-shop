@@ -81,10 +81,10 @@ function WidgetFilters(props) {
                 {filtersList}
             </div>
 
-            <div className="widget-filters__actions d-flex">
-                <button type="button" className="btn btn-primary btn-sm">Filter</button>
-                <button type="button" className="btn btn-secondary btn-sm ml-2">Reset</button>
-            </div>
+            {/*<div className="widget-filters__actions d-flex">*/}
+            {/*    <button type="button" className="btn btn-primary btn-sm">Filter</button>*/}
+            {/*    <button type="button" className="btn btn-secondary btn-sm ml-2">Reset</button>*/}
+            {/*</div>*/}
         </div>
     );
 }
