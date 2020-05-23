@@ -4,18 +4,18 @@ import React from 'react';
 // third-party
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import {connect} from 'react-redux';
+import {Link} from 'react-router-dom';
 
 // application
 import AsyncAction from './AsyncAction';
 import Currency from './Currency';
 import Rating from './Rating';
-import { cartAddItem } from '../../store/cart';
-import { Compare16Svg, Quickview16Svg, Wishlist16Svg } from '../../svg';
-import { compareAddItem } from '../../store/compare';
-import { quickviewOpen } from '../../store/quickview';
-import { wishlistAddItem } from '../../store/wishlist';
+import {cartAddItem} from '../../store/cart';
+import { Quickview16Svg} from '../../svg';
+import {compareAddItem} from '../../store/compare';
+import {quickviewOpen} from '../../store/quickview';
+import {wishlistAddItem} from '../../store/wishlist';
 
 
 function ProductCard(props) {
@@ -55,7 +55,7 @@ function ProductCard(props) {
     if (product.images && product.images.length > 0) {
         image = (
             <div className="product-card__image">
-                <Link to={`/shop/product/${product.id}`}><img src={product.images[0]} alt="" /></Link>
+                <Link to={`/shop/product/${product.id}`}><img src={product.images[0]} alt=""/></Link>
             </div>
         );
     }
@@ -63,15 +63,15 @@ function ProductCard(props) {
     if (product.compareAtPrice) {
         price = (
             <div className="product-card__prices">
-                <span className="product-card__new-price"><Currency value={product.price} /></span>
+                <span className="product-card__new-price"><Currency value={product.price}/></span>
                 {' '}
-                <span className="product-card__old-price"><Currency value={product.compareAtPrice} /></span>
+                <span className="product-card__old-price"><Currency value={product.compareAtPrice}/></span>
             </div>
         );
     } else {
         price = (
             <div className="product-card__prices">
-                <Currency value={product.price} />
+                <Currency value={product.price}/>
             </div>
         );
     }
@@ -90,7 +90,7 @@ function ProductCard(props) {
         <div className={containerClasses}>
             <AsyncAction
                 action={() => quickviewOpen(product.id)}
-                render={({ run, loading }) => (
+                render={({run, loading}) => (
                     <button
                         type="button"
                         onClick={run}
@@ -98,7 +98,7 @@ function ProductCard(props) {
                             'product-card__quickview--preload': loading,
                         })}
                     >
-                        <Quickview16Svg />
+                        <Quickview16Svg/>
                     </button>
                 )}
             />
@@ -109,7 +109,7 @@ function ProductCard(props) {
                     <Link to={`/shop/product/${product.id}`}>{product.title}</Link>
                 </div>
                 <div className="product-card__rating">
-                    <Rating value={product.rating} />
+                    <Rating value={product.rating}/>
                     {/*<div className=" product-card__rating-legend">{`${product.reviews} Reviews`}</div>*/}
                 </div>
                 {features}
@@ -117,7 +117,8 @@ function ProductCard(props) {
             <div className="product-card__actions">
                 <div className="product-card__availability">
                     Availability:
-                    <span className="text-success">In Stock</span>
+                    {product.availability ? <span className="text-success">In Stock</span> :
+                        <span className="text-danger">Out of Stock</span>}
                 </div>
                 {price}
                 {/*<div className="product-card__buttons">*/}

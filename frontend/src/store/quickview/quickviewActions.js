@@ -1,4 +1,3 @@
-import products from '../../data/shopProducts';
 import { QUICKVIEW_CLOSE, QUICKVIEW_OPEN } from './quickviewActionTypes';
 
 
@@ -16,18 +15,15 @@ export function quickviewClose() {
 }
 
 export function quickviewOpen(productId) {
-    // sending request to server, timeout is used as a stub
     return (dispatch) => (
-        new Promise((resolve) => {
-            setTimeout(() => {
-                const product = products.find((x) => x.id === productId);
-
-                if (product) {
-                    dispatch(quickviewOpenSuccess(product));
-                }
-
-                resolve();
-            }, 2000);
-        })
+        fetch(`/api/product/${productId}`)
+            .then(response => response.json())
+            .then(json => {
+                dispatch(quickviewOpenSuccess(json.result.product));
+                return json.result;
+            })
+            .catch(error =>
+                dispatch(quickviewClose(error))
+            )
     );
 }
