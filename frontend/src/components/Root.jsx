@@ -42,8 +42,7 @@ class Root extends Component {
             exact: true,
             strict: false
         });
-        console.log(shopPath)
-        this.props.fetchProducts("", shopPath?.params?.id ?? "", shopPath?.params?.id ? {limit: 15} : {});
+        this.props.fetchProducts("", shopPath?.params?.id ?? "", {limit: 0, offset: 0, sort: "desc"});
     }
 
     render() {

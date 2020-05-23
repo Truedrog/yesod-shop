@@ -59,6 +59,14 @@ function Layout(props) {
                         */}
                         <Route
                             exact
+                            path="/shop"
+                            render={(props) => (
+                                <ShopPageCategory {...props} columns={5} viewMode="grid" />
+                            )}
+                        />
+
+                        <Route
+                            exact
                             path="/shop/category/:categoryId"
                             render={(props) => (
                                 <ShopPageCategory {...props} columns={5} viewMode="grid" />

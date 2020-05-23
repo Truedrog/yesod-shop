@@ -10,10 +10,32 @@ import {sidebarClose} from '../../store/sidebar';
 // widgets
 import WidgetFilters from '../widgets/WidgetFilters';
 import WidgetProducts from '../widgets/WidgetProducts';
-// data stubs
-import filters from '../../data/shopFilters';
 import {fetchCategories} from "../../store/category";
 
+const getFilters = (categories) => {
+
+    return [{
+        id: 1,
+        name: 'Categories',
+        type: 'categories',
+        options: {
+            items: categories.map(category => {
+                const subCat = category.links.map(subcat => ({
+                    id: subcat.id,
+                    name: subcat.title,
+                    url: subcat.url,
+                    type: "child"
+                }))
+                return [{
+                    id: category.id,
+                    name: category.title,
+                    url: category.url,
+                    type: category.links.length === 0 ? "child" : "current",
+                }].concat(...subCat)
+            }).flat()
+        }
+    }]
+}
 
 function CategorySidebar(props) {
     const {
@@ -27,6 +49,7 @@ function CategorySidebar(props) {
     if (categories.loading !== true && categories.items.length === 0) {
         fetchCategories()
     }
+    const filters = getFilters(categories.items);
     const classes = classNames('block block-sidebar', {
         'block-sidebar--open': sidebarState.open,
         'block-sidebar--offcanvas--always': offcanvas === 'always',

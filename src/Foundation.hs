@@ -2,7 +2,6 @@
 
 module Foundation where
 
-import AppType
 import Control.Monad.Logger (LogSource)
 import qualified Data.Text.Lazy.Encoding as TE
 import Import.NoFoundation
@@ -14,6 +13,17 @@ import Text.Shakespeare.Text (stext)
 import Yesod.Core.Types (Logger)
 import qualified Yesod.Core.Unsafe as Unsafe
 
+data App
+  = App
+      { appSettings :: AppSettings,
+        -- | Settings for static file serving.
+        appStatic :: Static,
+        -- | Database connection pool.
+        appConnPool :: ConnectionPool,
+        appHttpManager :: Manager,
+        appLogger :: Logger
+      }
+
 -- Note that this is really half the story; in Application.hs, mkYesodDispatch
 -- generates the rest of the code. Please see the following documentation
 -- for an explanation for this split:
@@ -23,13 +33,6 @@ import qualified Yesod.Core.Unsafe as Unsafe
 -- type Handler = HandlerFor App
 -- type Widget = WidgetFor App ()
 mkYesodData "App" $(parseRoutesFile "config/routes")
-
--- | Cookie name used for the sessions of this example app.
-sessionCookieName :: Text
-sessionCookieName = "SESSION"
-
--- | A convenient synonym for creating forms.
-type Form x = Html -> MForm (HandlerFor App) (FormResult x, Widget)
 
 -- | A convenient synonym for database access functions.
 type DB a = forall (m :: * -> *). (MonadIO m) => ReaderT SqlBackend m a
@@ -92,6 +95,7 @@ instance Yesod App where
   isAuthorized CatsR _ = pure Authorized
   isAuthorized (ProductR _) _ = pure Authorized
   isAuthorized ProductsR _ = pure Authorized
+  isAuthorized CountProductsR _ = pure Authorized
   isAuthorized (ProductsByCatR _) _ = pure Authorized
   isAuthorized (StaticR _) _ = pure Authorized
 

@@ -2,51 +2,56 @@
 
 module Handler.Cats where
 
+import Data.Either (fromRight)
 import qualified Data.Map.Strict as M
+import Data.Text.Read (decimal)
 import Database.Esqueleto hiding (Value, from, on)
 import Database.Esqueleto.Experimental
 import Import hiding ((==.), isNothing, on)
 
 data Link
   = Link
-      { title :: Maybe Text,
+      { catId :: Maybe Int64,
+        title :: Text,
         url :: Maybe Text,
         links :: Maybe [Link]
       }
   deriving (Show, Eq, Ord, Generic)
 
 instance Monoid Link where
-  mempty = Link {title = Just "", url = Nothing, links = Nothing}
+  mempty = Link {catId = Nothing, title = "", url = Just "", links = Nothing}
 
 instance Semigroup Link where
-  Link _ _ links <> Link title url links' = Link title url (links <> links')
+  Link _ _ _ links <> Link catId title url links' = Link catId title url (links <> links')
 
 instance FromJSON Link
 
 instance ToJSON Link where
-  toJSON (Link title url links) =
+  toJSON (Link catId title url links) =
     object $
       stripNulls
-        [ "title" .= title,
+        [ "id" .= catId,
+          "title" .= title,
           "url" .= url,
           "links" .= links
         ]
 
 getCatsR :: Handler Value
 getCatsR = do
-  cats <- runDB selectCats
+  cats <- runDB $ selectCats
   let ks =
         M.elems $
           M.fromListWith
             (<>)
-            [ ( catId,
-                Link {title = Just title, url = url, links = Just [Link {title = subTitle, url = subUrl, links = Nothing}]}
+            [ ( cId,
+                Link {catId = Just cId, title = title, url = url, links = Just [Link {catId = subCatId, title = subTitle, url = subUrl, links = Nothing}]}
               )
               | (cat, subcat) <- cats,
-                let catId = fromSqlKey . entityKey $ cat
+                let cId = fromSqlKey . entityKey $ cat
                     title = categoryTitle . entityVal $ cat
                     url = categoryUrl . entityVal $ cat
-                    subTitle = categoryTitle . entityVal <$> subcat
+                    subCatId = fromSqlKey . entityKey <$> subcat
+                    subTitle = maybe "" (categoryTitle . entityVal) subcat
                     subUrl = (categoryUrl . entityVal) =<< subcat
             ]
   pure $ object ["status" .= ("ok" :: Text), "result" .= ks]
