@@ -2,9 +2,7 @@
 
 module Handler.Cats where
 
-import Data.Either (fromRight)
 import qualified Data.Map.Strict as M
-import Data.Text.Read (decimal)
 import Database.Esqueleto hiding (Value, from, on)
 import Database.Esqueleto.Experimental
 import Import hiding ((==.), isNothing, on)

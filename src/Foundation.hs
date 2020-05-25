@@ -5,7 +5,7 @@ module Foundation where
 import Control.Monad.Logger (LogSource)
 import qualified Data.Text.Lazy.Encoding as TE
 import Import.NoFoundation
-import Network.Mail.Mime
+import Network.Mail.Mime hiding (htmlPart)
 import Network.Wai (Middleware)
 import Network.Wai.Middleware.Rewrite (PathsAndQueries, rewritePureWithQueries)
 import Text.Blaze.Html.Renderer.Utf8 (renderHtml)
@@ -63,24 +63,29 @@ instance Yesod App where
           (AuthR LogoutR) -> toRoute ["logout"]
           (AuthR (PluginR "email" p)) -> toRoute p
           _ -> Nothing
+
   errorHandler NotFound = redirectWith status307 HomeR
   errorHandler other = defaultErrorHandler other
+
   approot :: Approot App
   approot =
     ApprootRequest $ \app req ->
       case appRoot $ appSettings app of
         Nothing -> getApprootText guessApproot app req
         Just root -> root
+
   makeSessionBackend :: App -> IO (Maybe SessionBackend)
   makeSessionBackend _ =
     Just
       <$> defaultClientSessionBackend
         120 -- timeout in minutes
         "config/client_session_key.aes"
-  yesodMiddleware :: Handler res -> Handler res
+
   yesodMiddleware = defaultYesodMiddleware
+
   authRoute :: App -> Maybe (Route App)
   authRoute _ = Just $ AuthR LoginR
+
   isAuthorized ::
     -- | The route the user is visiting.
     Route App ->
@@ -104,6 +109,7 @@ instance Yesod App where
   shouldLogIO :: App -> LogSource -> LogLevel -> IO Bool
   shouldLogIO app _source level =
     return $ appShouldLogAll (appSettings app) || level == LevelWarn || level == LevelError
+
   makeLogger :: App -> IO Logger
   makeLogger = return . appLogger
 
