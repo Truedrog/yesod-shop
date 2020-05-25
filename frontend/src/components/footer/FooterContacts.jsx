@@ -16,10 +16,10 @@ export default function FooterContacts() {
             {/*</div>*/}
 
             <ul className="footer-contacts__contacts">
-                <li>
-                    <i className="footer-contacts__icon fas fa-globe-americas" />
+                {/*<li>*/}
+                    {/*<i className="footer-contacts__icon fas fa-globe-americas" />*/}
                     {/*{theme.contacts.address}*/}
-                </li>
+                {/*</li>*/}
                 <li>
                     <i className="footer-contacts__icon far fa-envelope" />
                     {theme.contacts.email}

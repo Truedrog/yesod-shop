@@ -11,15 +11,15 @@ import FooterLinks from './FooterLinks';
 
 
 export default function Footer() {
-    const informationLinks = [
-        { title: 'About Us', url: '/site/about-us' },
+    // const informationLinks = [
+        // { title: 'About Us', url: '/site/about-us' },
         // { title: 'Delivery Information', url: '' },
         // { title: 'Privacy Policy', url: '' },
         // { title: 'Brands', url: '' },
         // { title: 'Contact Us', url: '' },
-        { title: 'Returns', url: '/site/returns' },
+        // { title: 'Returns', url: '/site/returns' },
         // { title: 'Site Map', url: '' },
-    ];
+    // ];
 
     // const accountLinks = [
     //     { title: 'Store Location', url: '' },
@@ -39,9 +39,9 @@ export default function Footer() {
                         <div className="col-12 col-md-6 col-lg-4">
                             <FooterContacts />
                         </div>
-                        <div className="col-6 col-md-3 col-lg-2">
-                            <FooterLinks title="Information" items={informationLinks} />
-                        </div>
+                        {/*<div className="col-6 col-md-3 col-lg-2">*/}
+                        {/*    <FooterLinks title="Information" items={informationLinks} />*/}
+                        {/*</div>*/}
                         {/* <div className="col-6 col-md-3 col-lg-2">
                             <FooterLinks title="My Account" items={accountLinks} />
                         </div> */}

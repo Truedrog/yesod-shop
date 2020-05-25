@@ -20,6 +20,8 @@ import SitePageNotFound from './site/SitePageNotFound';
 import SitePageTerms from './site/SitePageTerms';
 // data stubs
 import theme from '../data/theme';
+// import BlogPageCategory from "./blog/BlogPageCategory";
+// import BlogPagePost from "./blog/BlogPagePost";
 
 
 function Layout(props) {

@@ -10,18 +10,17 @@ import { Link } from 'react-router-dom';
 import NavPanel from './NavPanel';
 import Search from './Search';
 import Topbar from './Topbar';
-import { LogoSvg } from '../../svg';
-
 
 function Header(props) {
     const { layout } = props;
     let bannerSection;
 
+
     if (layout === 'default') {
         bannerSection = (
             <div className="site-header__middle container">
                 <div className="site-header__logo">
-                    <Link to="/"><LogoSvg /></Link>
+                    <Link to="/"><img src="images/logos/logo.png" alt="" style={{height: 60}}/></Link>
                 </div>
                 {/*<div className="site-header__search">*/}
                 {/*    <Search context="header" />*/}

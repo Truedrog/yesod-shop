@@ -1,28 +1,69 @@
 // react
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 
 // third-party
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import {connect} from 'react-redux';
 
 // application
 import AppLink from '../shared/AppLink';
 import languages from '../../i18n';
 import Megamenu from './Megamenu';
 import Menu from './Menu';
-import { ArrowRoundedDown9x6Svg } from '../../svg';
+import {ArrowRoundedDown9x6Svg} from '../../svg';
 
 // data stubs
-import navLinks from '../../data/headerNavigation';
+// import navLinks from '../../data/headerNavigation';
+import {fetchCategories} from "../../store/category";
 
+const generateNavLinks = (categories) => {
+    function splitArray(candid) {
+        let oddOnes = [],
+            evenOnes = [];
+        for (let i = 0; i < candid.length; i++)
+            (i % 2 === 0 ? evenOnes : oddOnes).push(candid[i]);
+        return [evenOnes, oddOnes];
+    }
+
+    const [odd, even] = splitArray(categories.items)
+    return [
+        {
+            title: 'Home',
+            url: '/',
+
+        },
+        {
+            title: 'Shop',
+            url: '/shop',
+            submenu: {
+                type: 'megamenu',
+                menu: {
+                    size: 'nl',
+                    columns: [
+                        {
+                            size: 6,
+                            links: odd.map(cat => ({title: cat.title, url: cat.url, id: cat.id,  links: cat.links}))
+                        },
+                        {
+                            size: 6,
+                            links: even.map(cat => ({title: cat.title, url: cat.url, id: cat.id, links: cat.links}))
+                        },]
+                },
+            },
+        },
+    ]
+}
 
 function NavLinks(props) {
     const {categories} = props;
-
+    if (categories.items.length === 0 && categories.loading === false) {
+        props.fetchCategories();
+    }
+    const navLinks = generateNavLinks(categories);
     const handleMouseEnter = (event) => {
-        const { locale } = props;
-        const { direction } = languages[locale];
+        const {locale} = props;
+        const {direction} = languages[locale];
 
         const item = event.currentTarget;
         const megamenu = item.querySelector('.nav-links__megamenu');
@@ -60,13 +101,13 @@ function NavLinks(props) {
         let submenu;
 
         if (item.submenu) {
-            arrow = <ArrowRoundedDown9x6Svg className="nav-links__arrow" />;
+            arrow = <ArrowRoundedDown9x6Svg className="nav-links__arrow"/>;
         }
 
         if (item.submenu && item.submenu.type === 'menu') {
             submenu = (
                 <div className="nav-links__menu">
-                    <Menu items={item.submenu.menu} />
+                    <Menu items={item.submenu.menu}/>
                 </div>
             );
         }
@@ -74,7 +115,7 @@ function NavLinks(props) {
         if (item.submenu && item.submenu.type === 'megamenu') {
             submenu = (
                 <div className={`nav-links__megamenu nav-links__megamenu--size--${item.submenu.menu.size}`}>
-                    <Megamenu menu={item.submenu.menu} />
+                    <Megamenu menu={item.submenu.menu}/>
                 </div>
             );
         }
@@ -112,5 +153,7 @@ const mapStateToProps = (state) => ({
     locale: state.locale,
     categories: state.categories
 });
-
-export default connect(mapStateToProps)(NavLinks);
+const mapDispatchToProps = {
+    fetchCategories
+}
+export default connect(mapStateToProps, mapDispatchToProps)(NavLinks);

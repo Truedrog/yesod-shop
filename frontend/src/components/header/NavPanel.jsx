@@ -13,7 +13,7 @@ import Indicator from './Indicator';
 import IndicatorAccount from './IndicatorAccount';
 import IndicatorSearch from './IndicatorSearch';
 import NavLinks from './NavLinks';
-import { Heart20Svg, LogoSmallSvg } from '../../svg';
+import { Heart20Svg } from '../../svg';
 
 
 function NavPanel(props) {
@@ -26,7 +26,7 @@ function NavPanel(props) {
     if (layout === 'compact') {
         logo = (
             <div className="nav-panel__logo">
-                <Link to="/"><LogoSmallSvg /></Link>
+                <Link to="/"><img src="images/logos/logo.png" alt="" style={{height: 60}}/></Link>
             </div>
         );
 
