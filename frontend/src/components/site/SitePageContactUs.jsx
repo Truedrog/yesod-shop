@@ -16,7 +16,7 @@ import theme from '../../data/theme';
 
 function SitePageContactUs() {
     const breadcrumb = [
-        { title: 'Home', url: '' },
+        { title: 'Home', url: '/' },
         { title: 'Contact Us', url: '' },
     ];
 
@@ -41,11 +41,9 @@ function SitePageContactUs() {
 
                                         <div className="contact-us__address">
                                             <p>
-                                                715 Fake Ave, Apt. 34, New York, NY 10021 USA
+                                                Rostokas 75, Riga, lv1025 Latvia
                                                 <br />
-                                                Email: stroyka@example.com
-                                                <br />
-                                                Phone Number: +1 754 000-00-00
+                                                Email: fixnbump@gmail.com
                                             </p>
 
                                             <p>
@@ -58,15 +56,7 @@ function SitePageContactUs() {
                                                 Sunday: 10am-4pm
                                             </p>
 
-                                            <p>
 
-                                                <strong>Comment</strong>
-                                                <br />
-                                                Lorem ipsum dolor sit amet, consectetur adipiscing
-                                                elit. Curabitur suscipit suscipit mi, non tempor
-                                                nulla finibus eget. Lorem ipsum dolor sit amet,
-                                                consectetur adipiscing elit.
-                                            </p>
                                         </div>
                                     </div>
 
