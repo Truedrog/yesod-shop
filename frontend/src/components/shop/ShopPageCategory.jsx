@@ -12,8 +12,6 @@ import PageHeader from '../shared/PageHeader';
 import ProductsView from './ProductsView';
 import { sidebarClose } from '../../store/sidebar';
 
-// data stubs
-// import products from '../../data/shopProducts';
 import theme from '../../data/theme';
 import {getStatus, getVisibleProducts} from "../../store/product/productReducer";
 
@@ -24,11 +22,17 @@ function ShopPageCategory(props) {
         sidebarPosition,
         products,
         productsStatus,
+        categories,
+        match
     } = props;
 
+    const cat = categories.items.flatMap(x => [x, ...x.links]).find(x => {
+        return x.id == match.params.categoryId;
+    });
+
     const breadcrumb = [
-        { title: 'Home', url: '' },
-        { title: 'Screwdrivers', url: '' },
+        { title: 'Home', url: '/' },
+        cat
     ];
     let content;
 
@@ -80,10 +84,10 @@ function ShopPageCategory(props) {
     return (
         <React.Fragment>
             <Helmet>
-                <title>{`Shop Category Page — ${theme.name}`}</title>
+                <title>{`${cat.title} — ${theme.name}`}</title>
             </Helmet>
 
-            <PageHeader header="Screwdrivers" breadcrumb={breadcrumb} />
+            <PageHeader header={cat.title} breadcrumb={breadcrumb} />
 
             {content}
         </React.Fragment>
@@ -116,6 +120,7 @@ ShopPageCategory.defaultProps = {
 
 const mapStateToProps = (state) => ({
     sidebarState: state.sidebar,
+    categories: state.categories,
     products: getVisibleProducts(state.products),
     productsStatus: getStatus(state.products),
 });

@@ -13,7 +13,7 @@ import theme from '../../data/theme';
 
 function SitePageContactUsAlt() {
     const breadcrumb = [
-        { title: 'Home', url: '' },
+        { title: 'Home', url: '/' },
         { title: 'Contact Us', url: '' },
     ];
 

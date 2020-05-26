@@ -39,7 +39,7 @@ function HomePageTwo(props) {
         <React.Fragment>
             <Helmet>
 
-                <title>{`Home Page`}</title>
+                <title>{`FixNBump`}</title>
             </Helmet>
 
             <BlockSlideShow/>

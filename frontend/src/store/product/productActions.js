@@ -7,10 +7,10 @@ export function fetchProducts(sliceName = "", category = "", options = {}) {
     let actions;
     switch (sliceName) {
         case "A":
-            actions = {beginA, successA, failureA}
+            actions = {begin:beginA, success: successA, failure:failureA}
             return performFetch(str, actions, options);
         case "B":
-            actions = {beginB, successB, failureB}
+            actions = {begin:beginB, success: successB,failure: failureB}
             return performFetch(str, actions, options);
         default:
             actions = {begin, success, failure}
