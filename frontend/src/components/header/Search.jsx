@@ -121,7 +121,7 @@ function Search(props) {
                         value={query}
                         className="search__input"
                         name="search"
-                        placeholder="Search over 10,000 products"
+                        placeholder="Search..."
                         aria-label="Site search"
                         type="text"
                         autoComplete="off"
