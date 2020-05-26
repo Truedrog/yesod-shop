@@ -26,8 +26,6 @@ function SitePageContactUs() {
                 <title>{`Contact Us — ${theme.name}`}</title>
             </Helmet>
 
-            <BlockMap />
-
             <PageHeader header="Contact Us" breadcrumb={breadcrumb} />
 
             <div className="block">
