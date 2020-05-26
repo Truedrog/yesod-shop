@@ -46,7 +46,7 @@ function CategorySidebar(props) {
         fetchCategories,
         products
     } = props;
-    if (categories.loading !== true && categories.items.length === 0) {
+    if (categories.items.length === 0) {
         fetchCategories()
     }
     const filters = getFilters(categories.items);
