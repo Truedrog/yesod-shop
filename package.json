@@ -2,6 +2,6 @@
   "name": "yesod-shop",
   "version": "1.0.0",
   "scripts": {
-    "heroku-prebuild": "cd frontend && yarn install && yarn run build"
+    "heroku-prebuild": "cd frontend && npm install && npm run build"
   }
 }
