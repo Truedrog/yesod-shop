@@ -1,5 +1,5 @@
 // react
-import React from 'react';
+import React, {useEffect} from 'react';
 
 // third-party
 import PropTypes from 'prop-types';
@@ -14,6 +14,7 @@ import { sidebarClose } from '../../store/sidebar';
 
 import theme from '../../data/theme';
 import {getStatus, getVisibleProducts} from "../../store/product/productReducer";
+import {fetchProducts} from "../../store/product/productActions";
 
 function ShopPageCategory(props) {
     const {
@@ -23,8 +24,15 @@ function ShopPageCategory(props) {
         products,
         productsStatus,
         categories,
-        match
+        match,
+        location
     } = props;
+
+    useEffect(() => {
+        if(location?.state?.fromMegaMenu) {
+            props.fetchProducts("", match.params.categoryId, {limit: 0, offset: 0, sort: "desc"})
+        }
+    }, [location?.state?.fromMegaMenu, match?.params?.categoryId])
 
     const cat = categories.items.flatMap(x => [x, ...x.links]).find(x => {
         return x.id == match.params.categoryId;
@@ -32,7 +40,7 @@ function ShopPageCategory(props) {
 
     const breadcrumb = [
         { title: 'Home', url: '/' },
-        cat
+        cat ?? {title: 'Shop', url: '/shop'}
     ];
     let content;
 
@@ -81,13 +89,14 @@ function ShopPageCategory(props) {
         );
     }
 
+    let title = cat ? cat.title : "Shop"
     return (
         <React.Fragment>
             <Helmet>
-                <title>{`${cat.title} — ${theme.name}`}</title>
+                <title>{`${title} — ${theme.name}`}</title>
             </Helmet>
 
-            <PageHeader header={cat.title} breadcrumb={breadcrumb} />
+            <PageHeader header={title} breadcrumb={breadcrumb} />
 
             {content}
         </React.Fragment>
@@ -127,6 +136,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = {
     sidebarClose,
+    fetchProducts
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ShopPageCategory);

@@ -6,5 +6,4 @@
 /api/cats CatsR GET
 /api/products ProductsR GET
 /api/products/#CategoryId ProductsByCatR GET
-!/api/products/count CountProductsR GET
 /api/product/#ProductId ProductR GET

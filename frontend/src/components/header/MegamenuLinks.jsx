@@ -15,7 +15,7 @@ function MegamenuLinks(props) {
         let subLinks = null;
 
         if (link.title) {
-            title = <Link to={link.url}>{link.title}</Link>;
+            title = <Link to={{pathname: link.url, state: {fromMegaMenu: true}}}>{link.title}</Link>;
         }
 
         if (link.links && link.links.length) {

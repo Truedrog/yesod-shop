@@ -5,9 +5,8 @@ module Handler.Product where
 import Data.Either (fromRight)
 import Data.Text.Read (decimal)
 import Database.Esqueleto hiding (Value, from, on)
-import qualified Database.Esqueleto as E (Value(..))
 import Database.Esqueleto.Experimental
-import Import hiding ((==.), isNothing, on, product, (||.), count)
+import Import hiding ((==.), count, isNothing, on, product, (||.))
 
 getProductR :: ProductId -> Handler Value
 getProductR productId = do
@@ -69,10 +68,3 @@ getProductsR = do
     offset o
     pure ps
   pure $ object ["status" .= ("ok" :: Text), "result" .= products]
-
-getCountProductsR :: Handler Value
-getCountProductsR = do
-  countSet :: [E.Value Int] <- runDB $ select $ do
-    _ <- from $ Table @Product
-    pure countRows
-  pure $ object ["status" .= ("ok" :: Text), "result" .= maybe 0 unValue (listToMaybe countSet)]

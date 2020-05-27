@@ -35,10 +35,23 @@ class ProductsView extends Component {
         };
     }
 
+    setCount = (count) => {
+        this.setState(() => ({total: count}))
+    }
+
+    componentDidUpdate(prevProps) {
+        this.shopPath = matchPath(window.location.pathname, {
+            path: "/shop/category/:id",
+            exact: true,
+            strict: false
+        });
+        if(prevProps.products.length !== this.props.products.length) {
+            this.setCount(this.props.products.length);
+        }
+    }
+
     async componentDidMount() {
-        const res = await fetch("/api/products/count");
-        const json = await res.json();
-        this.setState(() => ({total: json.result}))
+        await this.setCount(this.props.products.length);
     }
 
     setLayout = (layout) => {
@@ -131,7 +144,7 @@ class ProductsView extends Component {
                             </div>
                         </div>
                         <div className="view-options__legend">
-                            {`Showing ${this.state.perPage} of ${this.state.total} products`}
+                            {`${this.state.total} products`}
                         </div>
                         <div className="view-options__divider"/>
                         <div className="view-options__control">

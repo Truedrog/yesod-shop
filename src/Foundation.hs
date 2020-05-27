@@ -75,11 +75,7 @@ instance Yesod App where
         Just root -> root
 
   makeSessionBackend :: App -> IO (Maybe SessionBackend)
-  makeSessionBackend _ =
-    Just
-      <$> defaultClientSessionBackend
-        120 -- timeout in minutes
-        "config/client_session_key.aes"
+  makeSessionBackend _ = fmap Just $ envClientSessionBackend 120 "SESSION_KEY"
 
   yesodMiddleware = defaultYesodMiddleware
 
@@ -100,7 +96,6 @@ instance Yesod App where
   isAuthorized CatsR _ = pure Authorized
   isAuthorized (ProductR _) _ = pure Authorized
   isAuthorized ProductsR _ = pure Authorized
-  isAuthorized CountProductsR _ = pure Authorized
   isAuthorized (ProductsByCatR _) _ = pure Authorized
   isAuthorized (StaticR _) _ = pure Authorized
 
