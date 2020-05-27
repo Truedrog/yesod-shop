@@ -3,6 +3,8 @@ import React from 'react';
 // third-party
 import {Helmet} from 'react-helmet-async';
 import {connect} from "react-redux";
+import {isMobile} from "react-device-detect";
+
 // blocks
 import BlockBanner from '../blocks/BlockBanner';
 // import BlockCategories from '../blocks/BlockCategories';
@@ -42,7 +44,8 @@ function HomePageTwo(props) {
                 <title>{`FixNBump`}</title>
             </Helmet>
 
-            <BlockSlideShow/>
+            {!isMobile && <BlockSlideShow withDepartments />}
+            {isMobile && <><br/></>}
 
             {/*<BlockFeatures layout="boxed" />*/}
 

@@ -60,7 +60,9 @@ class MobileHeader extends Component {
                             <button type="button" className="mobile-header__menu-button" onClick={openMobileMenu}>
                                 <Menu18x14Svg />
                             </button>
-                            <Link to="/" className="mobile-header__logo"><LogoSmallSvg /></Link>
+                            <Link to="/" className="mobile-header__logo">
+                                <img height={20} width={140} src="images/logos/logo.png" />
+                            </Link>
                             <Search
                                 context="mobile-header"
                                 className={searchClasses}
@@ -78,12 +80,6 @@ class MobileHeader extends Component {
                                     url="/shop/wishlist"
                                     value={wishlist.length}
                                     icon={<Heart20Svg />}
-                                />
-                                <Indicator
-                                    className="indicator--mobile"
-                                    url="/shop/cart"
-                                    value={cart.quantity}
-                                    icon={<Cart20Svg />}
                                 />
                             </div>
                         </div>
