@@ -75,9 +75,9 @@ instance Yesod App where
         Just root -> root
 
   makeSessionBackend :: App -> IO (Maybe SessionBackend)
-  makeSessionBackend _ = laxSameSiteSessions $ fmap Just $ envClientSessionBackend 120 "SESSION_KEY"
+  makeSessionBackend _ = sslOnlySessions $ fmap Just $ envClientSessionBackend 120 "SESSION_KEY"
 
-  yesodMiddleware = defaultYesodMiddleware
+  yesodMiddleware = (sslOnlyMiddleware 120) . defaultYesodMiddleware
 
   authRoute :: App -> Maybe (Route App)
   authRoute _ = Just $ AuthR LoginR
