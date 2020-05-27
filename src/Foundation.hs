@@ -75,7 +75,7 @@ instance Yesod App where
         Just root -> root
 
   makeSessionBackend :: App -> IO (Maybe SessionBackend)
-  makeSessionBackend _ = fmap Just $ envClientSessionBackend 120 "SESSION_KEY"
+  makeSessionBackend _ = laxSameSiteSessions $ fmap Just $ envClientSessionBackend 120 "SESSION_KEY"
 
   yesodMiddleware = defaultYesodMiddleware
 
