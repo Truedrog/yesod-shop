@@ -44,7 +44,7 @@ function HomePageTwo(props) {
                 <title>{`FixNBump`}</title>
             </Helmet>
 
-            {!isMobile && <BlockSlideShow withDepartments />}
+            {!isMobile && <BlockSlideShow />}
             {isMobile && <><br/></>}
 
             {/*<BlockFeatures layout="boxed" />*/}
