@@ -3,5 +3,6 @@
   "version": "1.0.0",
   "scripts": {
     "heroku-prebuild": "cd frontend && npm install && npm run build"
-  }
+  },
+  "cacheDirectories": ["frontend/node_modules"]
 }

@@ -103,7 +103,7 @@ makeApplication foundation = do
         defaultMiddlewaresNoLogging
           >> logWare
           >> rewriteAuthRoutes
-  return $ logWare $ middlewares appPlain
+  return $ middlewares appPlain
 
 makeLogWare :: App -> IO Middleware
 makeLogWare foundation =
