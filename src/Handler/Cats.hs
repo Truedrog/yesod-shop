@@ -36,7 +36,7 @@ instance ToJSON Link where
 
 getCatsR :: Handler Value
 getCatsR = do
-  cats <- runDB $ selectCats
+  cats <- runDB selectCats
   let ks =
         M.elems $
           M.fromListWith

@@ -101,8 +101,8 @@ makeApplication foundation = do
   appPlain <- toWaiAppPlain foundation
   let middlewares =
         defaultMiddlewaresNoLogging
-          >> logWare
-          >> rewriteAuthRoutes
+          . logWare
+          . rewriteAuthRoutes
   return $ middlewares appPlain
 
 makeLogWare :: App -> IO Middleware
