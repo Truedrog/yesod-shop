@@ -1,54 +1,37 @@
-{-# LANGUAGE TypeApplications #-}
-
 module Handler.Cats where
 
-import qualified Data.Map.Strict as M
-import Database.Esqueleto hiding (Value, from, on)
-import Database.Esqueleto.Experimental
-import Import hiding ((==.), isNothing, on)
+import           Data.Aeson
+import qualified Data.Map.Strict                 as M
+import           Database.Esqueleto              hiding (Value, from, on)
+import           Database.Esqueleto.Experimental
+import           Import                          hiding (isNothing, on, (==.))
 
-data Link
-  = Link
-      { catId :: Maybe Int64,
-        title :: Text,
-        url :: Maybe Text,
-        links :: Maybe [Link]
-      }
-  deriving (Show, Eq, Ord, Generic)
+data Link = Link
+    { cId   :: Int64
+    , title :: Text
+    , url   :: Maybe Text
+    , links :: Maybe [Link]
+    }
+    deriving (Show, Eq, Ord, Generic)
 
-instance Monoid Link where
-  mempty = Link {catId = Nothing, title = "", url = Just "", links = Nothing}
-
-instance Semigroup Link where
-  Link _ _ _ links <> Link catId title url links' = Link catId title url (links <> links')
-
-instance FromJSON Link
-
+instance FromJSON Link where
+  parseJSON = genericParseJSON defaultOptions { omitNothingFields = True }
 instance ToJSON Link where
-  toJSON (Link catId title url links) =
-    object $
-      stripNulls
-        [ "id" .= catId,
-          "title" .= title,
-          "url" .= url,
-          "links" .= links
-        ]
+  toJSON = genericToJSON defaultOptions { omitNothingFields = True }
 
 getCatsR :: Handler Value
 getCatsR = do
   cats <- runDB selectCats
   let ks =
-        M.elems $
+        fmap (\((cId, url, title), links) -> Link {cId = cId, title = title, url = url, links = Just links}) . M.toList $
           M.fromListWith
             (<>)
-            [ ( cId,
-                Link {catId = Just cId, title = title, url = url, links = Just [Link {catId = subCatId, title = subTitle, url = subUrl, links = Nothing}]}
-              )
-              | (cat, subcat) <- cats,
-                let cId = fromSqlKey . entityKey $ cat
-                    title = categoryTitle . entityVal $ cat
-                    url = categoryUrl . entityVal $ cat
-                    subCatId = fromSqlKey . entityKey <$> subcat
+            [ ((cId, url, title), [Link {cId = subCatId, title = subTitle, url = subUrl, links = Nothing}])
+              | (category, subcat) <- cats,
+                let cId = fromSqlKey . entityKey $ category
+                    title = categoryTitle . entityVal $ category
+                    url = categoryUrl . entityVal $ category
+                    subCatId = maybe 0 (fromSqlKey . entityKey) subcat
                     subTitle = maybe "" (categoryTitle . entityVal) subcat
                     subUrl = (categoryUrl . entityVal) =<< subcat
             ]
