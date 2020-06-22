@@ -1,23 +1,26 @@
 module Handler.Cats where
 
-import           Data.Aeson
-import qualified Data.Map.Strict                 as M
-import           Database.Esqueleto              hiding (Value, from, on)
-import           Database.Esqueleto.Experimental
-import           Import                          hiding (isNothing, on, (==.))
+import Data.Aeson
+import qualified Data.Map.Strict as M
+import Database.Esqueleto hiding (Value, from, on)
+import Database.Esqueleto.Experimental
+import Import hiding ((==.), isNothing, on)
 
-data Link = Link
-    { cId   :: Int64
-    , title :: Text
-    , url   :: Maybe Text
-    , links :: Maybe [Link]
-    }
-    deriving (Show, Eq, Ord, Generic)
+data Link
+  = Link
+      { cId :: Int64,
+        title :: Text,
+        url :: Maybe Text,
+        links :: Maybe [Link]
+      }
+  deriving (Show, Eq, Ord, Generic)
 
 instance FromJSON Link where
-  parseJSON = genericParseJSON defaultOptions { omitNothingFields = True }
+  parseJSON = genericParseJSON defaultOptions {omitNothingFields = True}
+
 instance ToJSON Link where
-  toJSON = genericToJSON defaultOptions { omitNothingFields = True }
+  toJSON = genericToJSON defaultOptions {omitNothingFields = True}
+
 
 getCatsR :: Handler Value
 getCatsR = do
