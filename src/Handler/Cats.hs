@@ -8,10 +8,10 @@ import Import hiding ((==.), isNothing, on)
 
 data Link
   = Link
-      { cId :: Int64,
-        title :: Text,
-        url :: Maybe Text,
-        links :: Maybe [Link]
+      { cId :: !Int64,
+        title :: !Text,
+        url :: !(Maybe Text),
+        links :: !(Maybe [Link])
       }
   deriving (Show, Eq, Ord, Generic)
 

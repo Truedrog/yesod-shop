@@ -31,3 +31,16 @@ npm-debug.log
 /assets.zip
 /frontend.zip
 /crash.txt
+/.hie/Application.hie
+/.hie/Handler/Cats.hie
+/.hie/Db/DbTypes.hie
+/.hie/Foundation.hie
+/.hie/Handler/Home.hie
+/.hie/Import.hie
+/.hie/Model.hie
+/.hie/Import/NoFoundation.hie
+/.hie/Paths_yesod_app.hie
+/.hie/Handler/Product.hie
+/.hie/Settings.hie
+/.hie/Settings/StaticFiles.hie
+/stan.html

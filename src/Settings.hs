@@ -27,35 +27,35 @@ import Yesod.Default.Util          (WidgetFileSettings, widgetFileNoReload,
 -- loaded from various sources: defaults, environment variables, config files,
 -- theoretically even a database.
 data AppSettings = AppSettings
-    { appStaticDir              :: String
+    { appStaticDir              :: !String
     -- ^ Directory from which to serve static files.
-    , appDatabaseConf           :: PostgresConf
-    , appRoot                   :: Maybe Text
+    , appDatabaseConf           :: !PostgresConf
+    , appRoot                   :: !(Maybe Text)
     -- ^ Base for all generated URLs. If @Nothing@, determined
     -- from the request headers.
-    , appHost                   :: HostPreference
+    , appHost                   :: !HostPreference
     -- ^ Host/interface the server should bind to.
-    , appPort                   :: Int
+    , appPort                   :: !Int
     -- ^ Port to listen on
-    , appIpFromHeader           :: Bool
+    , appIpFromHeader           :: !Bool
     -- ^ Get the IP address from the header when logging. Useful when sitting
     -- behind a reverse proxy.
 
-    , appDetailedRequestLogging :: Bool
+    , appDetailedRequestLogging :: !Bool
     -- ^ Use detailed request logging system
-    , appShouldLogAll           :: Bool
+    , appShouldLogAll           :: !Bool
     -- ^ Should all log messages be displayed?
-    , appReloadTemplates        :: Bool
+    , appReloadTemplates        :: !Bool
     -- ^ Use the reload version of templates
-    , appMutableStatic          :: Bool
+    , appMutableStatic          :: !Bool
     -- ^ Assume that files in the static dir may change after compilation
-    , appSkipCombining          :: Bool
+    , appSkipCombining          :: !Bool
     -- ^ Perform no stylesheet/script combining
 
     -- Example app-specific configuration values.
-    , appCopyright              :: Text
+    , appCopyright              :: !Text
     -- ^ Copyright text to appear in the footer of the page
-    , appAnalytics              :: Maybe Text
+    , appAnalytics              :: !(Maybe Text)
     -- ^ Google Analytics code
     -- ^ Indicate if auth dummy login should be enabled.
     }
