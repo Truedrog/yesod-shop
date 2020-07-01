@@ -64,7 +64,11 @@ instance Yesod App where
           (AuthR (PluginR "email" p)) -> toRoute p
           _ -> Nothing
 
-  errorHandler NotFound = redirectWith status307 HomeR
+  errorHandler NotFound = do
+    app <- getYesod
+    let staticDir = appStaticDir $ appSettings app
+    let indexPath = staticDir </> "index.html"
+    sendFile typeHtml indexPath
   errorHandler other = defaultErrorHandler other
 
   approot :: Approot App
