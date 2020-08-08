@@ -139,10 +139,13 @@ warpSettings foundation =
       )
       defaultSettings
 
+getSettings :: IO AppSettings
+getSettings = getAppSettings
+
 -- | For yesod devel, return the Warp settings and WAI Application.
 getApplicationDev :: IO (Settings, Application)
 getApplicationDev = do
-  settings <- getAppSettings
+  settings <- getSettings
   foundation <- makeFoundation settings
   wsettings <- getDevSettings $ warpSettings foundation
   app <- makeApplication foundation
@@ -178,7 +181,7 @@ appMain =
 --------------------------------------------------------------
 getApplicationRepl :: IO (Int, App, Application)
 getApplicationRepl = do
-  settings <- getAppSettings
+  settings <- getSettings
   foundation <- makeFoundation settings
   wsettings <- getDevSettings $ warpSettings foundation
   app1 <- makeApplication foundation

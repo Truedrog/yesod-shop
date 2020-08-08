@@ -2,7 +2,6 @@
 
 module Handler.Product where
 
-import Data.Either (fromRight)
 import Data.Text.Read (decimal)
 import Database.Esqueleto hiding (Value, from, on)
 import Database.Esqueleto.Experimental
@@ -29,10 +28,26 @@ getProductR productId = do
 
 params :: MonadHandler m => m (Int64, Int64)
 params = do
-  ps <- reqGetParams <$> getRequest
-  let (o, _) = fromRight (0, "_") (decimal . fromMaybe "0" $ lookup "offset" ps :: Either String (Int64, Text))
-  let (l, _) = fromRight (12, "_") (decimal . fromMaybe "12" $ lookup "limit" ps :: Either String (Int64, Text))
-  pure (o, l)
+  o' <- getOffset
+  l' <- getLimit
+  pure (o', l')
+  where
+    getOffset :: MonadHandler m => m Int64
+    getOffset = do
+      maybeOffset <- lookupGetParam "offset"
+      case maybeOffset of
+        Just o -> case decimal o of
+          Right (offset', _) -> pure offset'
+          Left _ -> pure 0
+        Nothing -> pure 0
+    getLimit :: MonadHandler m => m Int64
+    getLimit = do
+      maybeLimit <- lookupGetParam "limit"
+      case maybeLimit of
+        Just o -> case decimal o of
+          Right (limit', _) -> pure limit'
+          Left _ -> pure 12
+        Nothing -> pure 12
 
 getProductsByCatR :: CategoryId -> Handler Value
 getProductsByCatR categoryId = do
