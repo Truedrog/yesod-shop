@@ -1,9 +1,22 @@
 module Handler.Cats where
 
 import Data.Aeson
+    ( genericParseJSON,
+      defaultOptions,
+      Options(omitNothingFields),
+      genericToJSON )
 import qualified Data.Map.Strict as M
-import Database.Esqueleto hiding (Value, from, on)
+import Database.Esqueleto
+    ( (==.),
+      (?.),
+      (^.),
+      isNothing,
+      just,
+      select,
+      where_,
+      LeftOuterJoin(LeftOuterJoin) )
 import Database.Esqueleto.Experimental
+    ( from, on, type (:&)((:&)), From(Table) )
 import Import hiding ((==.), isNothing, on)
 
 data Link
@@ -36,7 +49,7 @@ getCatsR = do
                     url = categoryUrl . entityVal $ category
                     subCatId = maybe 0 (fromSqlKey . entityKey) subcat
                     subTitle = maybe "" (categoryTitle . entityVal) subcat
-                    subUrl = (categoryUrl . entityVal) =<< subcat
+                    subUrl = subcat >>= (categoryUrl . entityVal)
             ]
   pure $ object ["status" .= ("ok" :: Text), "result" .= ks]
 

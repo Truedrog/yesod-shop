@@ -1,10 +1,22 @@
 module Model where
 
 import ClassyPrelude.Yesod
-import Database.Esqueleto
+    ( Eq,
+      Show,
+      Typeable,
+      Bool,
+      Double,
+      Int,
+      Text,
+      mkMigrate,
+      mkPersist,
+      persistFileWith,
+      share,
+      sqlSettings )
+import Database.Esqueleto ( BackendKey(SqlBackendKey) )
 import qualified Database.Esqueleto.PostgreSQL.JSON as PJSON
-import Database.Persist.Quasi
-import Db.DbTypes
+import Database.Persist.Quasi ( lowerCaseSettings )
+import Db.DbTypes ( ProductFeature, ProductSpecType )
 
 -- You can define all of your database entities in the entities file.
 -- You can find more information on persistent and how to declare entities

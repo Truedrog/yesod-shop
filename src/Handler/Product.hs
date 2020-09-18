@@ -3,8 +3,22 @@
 module Handler.Product where
 
 import Data.Text.Read (decimal)
-import Database.Esqueleto hiding (Value, from, on)
+import Database.Esqueleto
+    ( (==.),
+      (?.),
+      (^.),
+      asc,
+      limit,
+      offset,
+      orderBy,
+      select,
+      val,
+      where_,
+      (||.),
+      InnerJoin(InnerJoin),
+      LeftOuterJoin(LeftOuterJoin) )
 import Database.Esqueleto.Experimental
+    ( from, on, type (:&)((:&)), From(Table) )
 import Import hiding ((==.), count, isNothing, on, product, (||.))
 
 getProductR :: ProductId -> Handler Value
@@ -65,12 +79,12 @@ selectProductsByCat categoryId l o =
           `on` (\(product :& sub) -> sub ^. CategoryId ==. product ^. ProductCategory)
           `LeftOuterJoin` Table @Category
           `on` (\(_ :& sub :& root) -> root ?. CategoryId ==. sub ^. CategoryParentId)
-    orderBy [asc (product ^. ProductTitle)]
+    void $ orderBy [asc (product ^. ProductTitle)]
     where_ $
       cat ^. CategoryId ==. val categoryId
         ||. root ?. CategoryId ==. val (Just categoryId)
-    limit l
-    offset o
+    void $ limit l
+    void $ offset o
     pure product
 
 getProductsR :: Handler Value
@@ -78,8 +92,8 @@ getProductsR = do
   (o, l) <- params
   products <- runDB $ select $ do
     ps <- from $ Table @Product
-    orderBy [asc (ps ^. ProductTitle)]
-    limit l
-    offset o
+    void $ orderBy [asc (ps ^. ProductTitle)]
+    void $ limit l
+    void $ offset o
     pure ps
   pure $ object ["status" .= ("ok" :: Text), "result" .= products]
