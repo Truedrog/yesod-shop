@@ -18,23 +18,25 @@ export function fetchProducts(sliceName = "", category = "", options = {}) {
     }
 }
 
-const performFetch = (str, actions, options) => dispatch => {
-    const {begin, success, failure} = actions;
-    const {limit, offset, sort} = options;
-    let query = new URLSearchParams();
-    query.append("limit", limit ?? 0);
-    query.append("offset", offset ?? 0);
-    query.append("sort", sort);
-    dispatch(begin());
-    return fetch(`/api/products${str}?${query.toString()}`)
-        .then(response => response.json())
-        .then(json => {
-            dispatch(success(json.result));
-            return json.result;
-        })
-        .catch(error =>
-            dispatch(failure(error))
-        );
+const performFetch = (str, actions, options) => {
+    return dispatch => {
+        const {begin, success, failure} = actions;
+        const {limit, offset, sort} = options;
+        let query = new URLSearchParams();
+        query.append("limit", limit ?? 0);
+        query.append("offset", offset ?? 0);
+        query.append("sort", sort);
+        dispatch(begin());
+        return fetch(`/api/products${str}?${query.toString()}`)
+            .then(response => response.json())
+            .then(json => {
+                dispatch(success(json.result));
+                return json.result;
+            })
+            .catch(error =>
+                dispatch(failure(error))
+            );
+    };
 };
 
 export const fetchProductsBegin = name => createAction(`FETCH_PRODUCTS_BEGIN_${name}`);

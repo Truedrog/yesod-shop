@@ -35,7 +35,7 @@ data App
 mkYesodData "App" $(parseRoutesFile "config/routes")
 
 -- | A convenient synonym for database access functions.
-type DB a = forall (m :: * -> *). (MonadIO m) => ReaderT SqlBackend m a
+type DB a = forall (m :: Type -> Type). (MonadIO m) => ReaderT SqlBackend m a
 
 rewriteAuthRoutes :: Middleware
 rewriteAuthRoutes = rewritePureWithQueries rw
@@ -79,9 +79,9 @@ instance Yesod App where
         Just root -> root
 
   makeSessionBackend :: App -> IO (Maybe SessionBackend)
-  makeSessionBackend _ = sslOnlySessions $ fmap Just $ envClientSessionBackend 120 "SESSION_KEY"
+  makeSessionBackend _ = sslOnlySessions $ Just <$> envClientSessionBackend 120 "SESSION_KEY"
 
-  yesodMiddleware = (sslOnlyMiddleware 120) . defaultYesodMiddleware
+  yesodMiddleware = sslOnlyMiddleware 120 . defaultYesodMiddleware
 
   authRoute :: App -> Maybe (Route App)
   authRoute _ = Just $ AuthR LoginR
@@ -155,7 +155,7 @@ isAuthenticated :: Handler AuthResult
 isAuthenticated = do
   maybeAuthId >>= \case
     Nothing -> return $ Unauthorized "You must login to access this page"
-    Just _ -> return $ Authorized
+    Just _ -> return Authorized
 
 instance YesodAuthEmail App where
   type AuthEmailId App = UserId
@@ -218,7 +218,7 @@ instance YesodAuthEmail App where
           Just _ -> do
             update uid [UserVerified =. True, UserVerkey =. Nothing]
             return $ Just uid
-  getPassword = liftHandler . runDB . fmap (join . fmap userPassword) . get
+  getPassword = liftHandler . runDB . fmap (userPassword =<<) . get
   setPassword uid pass = liftHandler $ runDB $ update uid [UserPassword =. Just pass]
   getEmailCreds email =
     liftHandler

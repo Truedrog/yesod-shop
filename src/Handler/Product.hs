@@ -79,12 +79,12 @@ selectProductsByCat categoryId l o =
           `on` (\(product :& sub) -> sub ^. CategoryId ==. product ^. ProductCategory)
           `LeftOuterJoin` Table @Category
           `on` (\(_ :& sub :& root) -> root ?. CategoryId ==. sub ^. CategoryParentId)
-    void $ orderBy [asc (product ^. ProductTitle)]
+    orderBy [asc (product ^. ProductTitle)]
     where_ $
       cat ^. CategoryId ==. val categoryId
         ||. root ?. CategoryId ==. val (Just categoryId)
-    void $ limit l
-    void $ offset o
+    limit l
+    offset o
     pure product
 
 getProductsR :: Handler Value
@@ -92,8 +92,8 @@ getProductsR = do
   (o, l) <- params
   products <- runDB $ select $ do
     ps <- from $ Table @Product
-    void $ orderBy [asc (ps ^. ProductTitle)]
-    void $ limit l
-    void $ offset o
+    orderBy [asc (ps ^. ProductTitle)]
+    limit l
+    offset o
     pure ps
   pure $ object ["status" .= ("ok" :: Text), "result" .= products]

@@ -52,14 +52,14 @@ getCatsR = do
                     subUrl = subcat >>= (categoryUrl . entityVal)
             ]
   pure $ object ["status" .= ("ok" :: Text), "result" .= ks]
-
-selectCats :: DB [(Entity Category, Maybe (Entity Category))]
-selectCats =
-  select $ do
-    (root :& subcat) <-
-      from $
-        Table @Category
-          `LeftOuterJoin` Table @Category
-          `on` (\(root :& subcat) -> just (just (root ^. CategoryId)) ==. subcat ?. CategoryParentId)
-    where_ (isNothing (just (root ^. CategoryParentId)))
-    pure (root, subcat)
+  where 
+    selectCats :: DB [(Entity Category, Maybe (Entity Category))]
+    selectCats =
+      select $ do
+        (root :& subcat) <-
+          from $
+            Table @Category
+              `LeftOuterJoin` Table @Category
+              `on` (\(root :& subcat) -> just (just (root ^. CategoryId)) ==. subcat ?. CategoryParentId)
+        where_ (isNothing (just (root ^. CategoryParentId)))
+        pure (root, subcat)
