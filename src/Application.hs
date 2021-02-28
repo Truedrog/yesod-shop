@@ -13,7 +13,7 @@ module Application
 
     -- * for GHCI
     handler,
---    db,
+    db,
   )
 where
 
@@ -23,9 +23,9 @@ import Database.Persist.Postgresql (createPostgresqlPool, pgConnStr, pgPoolSize)
 -- Don't forget to add new modules to your cabal file!
 -- import Handler.Common
 
---import Handler.Cats
+import Handler.Cats
 import Handler.Home
---import Handler.Product
+import Handler.Product
 import Import
 import Language.Haskell.TH.Syntax (qLocation)
 import Network.HTTP.Client.TLS (getGlobalManager)
@@ -72,27 +72,25 @@ makeFoundation appSettings =
           else static
         )
         (appStaticDir appSettings)
-        
-    return App {..}
     -- We need a log function to create a connection pool. We need a connection
     -- pool to create our foundation. And we need our foundation to get a
     -- logging function. To get out of this loop, we initially create a
     -- temporary foundation without a real connection pool, get a log function
     -- from there, and then create the real foundation.
---    let mkFoundation appConnPool = App {..}
---        -- The App {..} syntax is an example of record wild cards. For more
---        -- information, see:
---        -- https://ocharles.org.uk/blog/posts/2014-12-04-record-wildcards.html
---        tempFoundation = mkFoundation $ error "connPool forced in tempFoundation"
---        logFunc = messageLoggerSource tempFoundation appLogger
---    -- Create the database connection pool
---    pool <-
---      flip runLoggingT logFunc $
---        createPostgresqlPool (pgConnStr $ appDatabaseConf appSettings) (pgPoolSize $ appDatabaseConf appSettings)
---    -- Perform database migration using our application's logging settings.
-----    runLoggingT (runSqlPool (runMigration migrateAll) pool) logFunc
---    -- Return the foundation
---    return $ mkFoundation pool
+    let mkFoundation appConnPool = App {..}
+        -- The App {..} syntax is an example of record wild cards. For more
+        -- information, see:
+        -- https://ocharles.org.uk/blog/posts/2014-12-04-record-wildcards.html
+        tempFoundation = mkFoundation $ error "connPool forced in tempFoundation"
+        logFunc = messageLoggerSource tempFoundation appLogger
+    -- Create the database connection pool
+    pool <-
+      flip runLoggingT logFunc $
+        createPostgresqlPool (pgConnStr $ appDatabaseConf appSettings) (pgPoolSize $ appDatabaseConf appSettings)
+    -- Perform database migration using our application's logging settings.
+    runLoggingT (runSqlPool (runMigration migrateAll) pool) logFunc
+    -- Return the foundation
+    return $ mkFoundation pool
 
 -- | Convert our foundation to a WAI Application by calling @toWaiAppPlain@ and
 -- applying some additional middlewares.
@@ -201,5 +199,5 @@ handler :: Handler a -> IO a
 handler h = getAppSettings >>= makeFoundation >>= flip unsafeHandler h
 
 -- | Run DB queries
---db :: ReaderT SqlBackend Handler a -> IO a
---db = handler . runDB
+db :: ReaderT SqlBackend Handler a -> IO a
+db = handler . runDB
