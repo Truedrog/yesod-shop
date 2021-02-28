@@ -63,26 +63,26 @@ dependencies:
 - http-conduit
 - directory
 - warp
-#- data-default
-#- aeson
-#- conduit
-#- monad-logger
-#- fast-logger
-#- wai-logger
-#- mime-mail
-#- file-embed
-#- safe
-#- unordered-containers
-#- containers
-#- vector
-#- time
-#- case-insensitive
-#- wai
-#- foreign-store
-#- persistent
-#- persistent-template
-#- persistent-postgresql
-#- esqueleto
+- data-default
+- aeson
+- conduit
+- monad-logger
+- fast-logger
+- wai-logger
+- mime-mail
+- file-embed
+- safe
+- unordered-containers
+- containers
+- vector
+- time
+- case-insensitive
+- wai
+- foreign-store
+- persistent
+- persistent-template
+- persistent-postgresql
+- esqueleto
 
 # The library contains all of our application code. The executable
 # defined below is just a thin wrapper.
