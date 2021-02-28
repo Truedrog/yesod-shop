@@ -1,9 +1,3 @@
 /assets StaticR Static appStatic
 
 / HomeR GET
-
-/auth   AuthR   Auth   getAuth
-/api/cats CatsR GET
-/api/products ProductsR GET
-/api/products/#CategoryId ProductsByCatR GET
-/api/product/#ProductId ProductR GET
