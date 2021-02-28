@@ -120,7 +120,7 @@ executables:
     ghc-options:
     - -threaded
     - -rtsopts
-    - -with-rtsopts=-N4-AL32m-n4m-A32m-qb0-I0-xn
+    - -with-rtsopts=-N4-AL32m-n4m-A32m-qb0-I0
     dependencies:
     - yesod-app
     when:
