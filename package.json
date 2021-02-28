@@ -4,5 +4,6 @@
   "scripts": {
     "heroku-prebuild": "cd frontend && npm install && npm run build"
   },
-  "cacheDirectories": ["frontend/node_modules"],
+  "cacheDirectories": ["frontend/node_modules"]
+
 }
