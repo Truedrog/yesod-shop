@@ -63,3 +63,4 @@ getCatsR = do
               `on` (\(root :& subcat) -> just (just (root ^. CategoryId)) ==. subcat ?. CategoryParentId)
         where_ (isNothing (just (root ^. CategoryParentId)))
         pure (root, subcat)
+
